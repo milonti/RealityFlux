@@ -13,10 +13,15 @@
 *.Trashes
  
 # All platforms:
-Library
-Temp
+/Library/FailedAssetImports.txt
+/Library/cache/
+/Library/previews/
+/Library/ScriptAssemblies
+/obj
+/Temp
 *.csproj
 *.pidb
 *.unityproj
 *.sln
 *.userprefs
+.DS_Store
