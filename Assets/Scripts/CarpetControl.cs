@@ -28,7 +28,7 @@ public class CarpetControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		moveDir = Vector3.zero;
-		WizardGUIScript.setMana(0);
+		WizardGUIScript.setMana(50);
 		WizardGUIScript.setHealth(93);
 		enemy = GameObject.Find("OtherPlayer");
 		spells = new Spells();

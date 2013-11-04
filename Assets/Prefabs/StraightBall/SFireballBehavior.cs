@@ -37,7 +37,7 @@ public class SFireballBehavior : MonoBehaviour {
 		enemy=e;	
 	}
 	public void setControl(GameObject e){
-		enemy=e;	
+		control=e;	
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){

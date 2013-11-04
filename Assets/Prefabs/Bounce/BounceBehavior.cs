@@ -73,7 +73,7 @@ public class BounceBehavior : MonoBehaviour {
 		control=e;	
 	}
 	public void shittyCollisionDetection(int lose){
-		if(Vector3.Distance(bounceC.transform.position,control.transform.position)<3&&!control.Equals(enemy)){
+		if(Vector3.Distance(bounceC.transform.position,control.transform.position)<5&&life>2){
 			Debug.Log("hit something");
 			control.GetComponent<CarpetControl>().detract(lose);
 			Destroy(gameObject);
