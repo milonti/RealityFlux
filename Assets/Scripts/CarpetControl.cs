@@ -5,11 +5,12 @@ public class CarpetControl : MonoBehaviour {
 	
 	public CharacterController playC;
 	public float speed;
-	
+	public GameObject enemy;
 	
 	private Vector3 moveDir;
 
 	public GameObject proj;
+	public GameObject proj2;
 	public Camera look;
 	
 	public float sensitivityX;
@@ -28,6 +29,19 @@ public class CarpetControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//spells go here
+		if(Input.GetButtonUp("Fire1")){
+			
+			GameObject fb = (GameObject)Instantiate(proj, look.transform.position + look.transform.forward * 3, look.transform.rotation);
+			fb.GetComponent<FireballBehavior>().enemy = enemy;
+			
+		}
+		if(Input.GetButtonUp("Fire2")){
+			
+			GameObject fb = (GameObject)Instantiate(proj2, look.transform.position + look.transform.forward * 3, look.transform.rotation);
+			fb.GetComponent<FireballBehavior>().enemy = enemy;
+			
+		}
 		
 		//rotation stuff
 		rotationY += Input.GetAxis("Mouse Y") * sensitivityY;

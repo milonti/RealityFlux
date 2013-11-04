@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: d52d6542e53fbb749aced02beebe6907
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - fireC: {instanceID: 0}
+  - explosionParticles: {fileID: 100004, guid: 33e2b3112e33c9b4a970b9b232697f06, type: 2}
+  - enemy: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
