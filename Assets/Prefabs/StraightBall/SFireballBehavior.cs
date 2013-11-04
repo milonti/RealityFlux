@@ -28,7 +28,7 @@ public class SFireballBehavior : MonoBehaviour {
 		//test.SetLookRotation(direction,fireC.transform.up);
 		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
 		//fireC.transform.rotation = Quaternion.Lerp(fireC.transform.rotation,test, Time.deltaTime);
-		
+		shittyCollisionDetection(10);
 		life+=Time.deltaTime;
 		if(life >=3) Destroy(gameObject);
 	}
@@ -47,6 +47,15 @@ public class SFireballBehavior : MonoBehaviour {
 				//Destroy(gameObject);
 			}
 		Destroy(gameObject);
+	}
+	public void shittyCollisionDetection(int lose){
+		if(Vector3.Distance(fireC.transform.position,control.transform.position)<3&&life>2){
+			Debug.Log("hit something");
+			control.GetComponent<CarpetControl>().detract(lose);
+			Destroy(gameObject);
+			
+		}
+		
 	}
 	
 }

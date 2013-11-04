@@ -41,6 +41,7 @@ public class BounceBehavior : MonoBehaviour {
 		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
 		bounceC.transform.rotation = Quaternion.Lerp(bounceC.transform.rotation,test, Time.deltaTime);
 		*/
+		shittyCollisionDetection(20);
 		life+=Time.deltaTime;
 		if(life >=30) Destroy(gameObject);
 	}
@@ -66,5 +67,14 @@ public class BounceBehavior : MonoBehaviour {
 	}
 	public void setEnemy(GameObject e){
 		enemy=e;	
+	}
+	public void shittyCollisionDetection(int lose){
+		if(Vector3.Distance(fireC.transform.position,control.transform.position)<3&&life>2){
+			Debug.Log("hit something");
+			control.GetComponent<CarpetControl>().detract(lose);
+			Destroy(gameObject);
+			
+		}
+		
 	}
 }
