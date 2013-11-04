@@ -15,8 +15,8 @@ public class WizardGUIScript : MonoBehaviour {
 		// Make a background box
 		//length=Screen.width/2-20;
 		
-		GUI.Box (new Rect(0,Screen.height-40, Screen.width/2-80, 40), HPcurrent + "/" + maxHealth);   
-		GUI.Box (new Rect(Screen.width/2+80,Screen.height-40, Screen.width/2-80, 40), MPcurrent + "/" + maxMana); 
+		GUI.Box (new Rect(0,Screen.height-40, Screen.width/2-80, 40), (int)HPcurrent + "/" + maxHealth);   
+		GUI.Box (new Rect(Screen.width/2+80,Screen.height-40, Screen.width/2-80, 40), (int)MPcurrent + "/" + maxMana); 
 		GUI.Box(new Rect(Screen.width/2-80,Screen.height-80,160,80), "");
 		GUI.Box(new Rect(Screen.width/2-5,Screen.height/2-5, 10, 10), "");
 		GUI.backgroundColor = Color.red;
@@ -41,19 +41,19 @@ public class WizardGUIScript : MonoBehaviour {
 		}
 		*/
 	}
-	static public void addHealth(int h){
+	static public void addHealth(float h){
 		HPcurrent+=h;
 		if(HPcurrent>maxHealth)HPcurrent=maxHealth;
 		
 	}
-	static public void addMana(int m){
+	static public void addMana(float m){
 		MPcurrent+=m;
 		if(MPcurrent>maxMana)MPcurrent=maxMana;
 	}
-	static public void setMana(int m){
+	static public void setMana(float m){
 		MPcurrent=m;	
 	}
-	static public void setHealth(int h){
+	static public void setHealth(float h){
 		HPcurrent=h;	
 	}
 	static public float getHealth(){return HPcurrent;}

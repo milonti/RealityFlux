@@ -23,11 +23,13 @@ public class CarpetControl : MonoBehaviour {
 	
 	public bool isMyPlayer = false;
 	public string player=null;
-	public int health = 100;
+	public int health = 90;
 	
 	// Use this for initialization
 	void Start () {
 		moveDir = Vector3.zero;
+		WizardGUIScript.setMana(0);
+		WizardGUIScript.setHealth(93);
 		enemy = GameObject.Find("OtherPlayer");
 		spells = new Spells();
 		if(!(Network.player.ToString() == player)){
@@ -40,7 +42,8 @@ public class CarpetControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update(){
 		
-		
+		WizardGUIScript.addMana(1f*Time.deltaTime);
+		WizardGUIScript.addHealth(0.2f*Time.deltaTime);
 		if(enemy==null)enemy = GameObject.Find("OtherPlayer");
 		if(isMyPlayer){
 			//rotation stuff
@@ -64,15 +67,19 @@ public class CarpetControl : MonoBehaviour {
 				playC.Move(moveDir * Time.deltaTime * speed);
 				networkView.RPC ("movePlayer", RPCMode.OthersBuffered, transform.position, player, transform.rotation);
 			}	
+			else WizardGUIScript.addMana(2f*Time.deltaTime);
 			//spells go here
-			if(Input.GetButtonUp("Fire1")){
+			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
+				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			
 			}
-			if(Input.GetButtonUp("Fire2")){
+			if(Input.GetButtonUp("Fire2")&&WizardGUIScript.getMana()>2){
+				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			}
-			if(Input.GetButtonUp("Fire3")){
+			if(Input.GetButtonUp("Fire3")&&WizardGUIScript.getMana()>2){
+				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			
 			}
@@ -112,10 +119,12 @@ public class CarpetControl : MonoBehaviour {
 		case "fireball":
 			fb = (GameObject)Instantiate(spells.fireball, pos + forw * 3, rot);
 			fb.GetComponent<SFireballBehavior>().setEnemy(target);
+			fb.GetComponent<SFireballBehavior>().setControl(gameObject);
 			break;
 		case "bouncer":
 			fb = (GameObject)Instantiate(spells.bouncer, pos + forw * 3, rot);
 			fb.GetComponent<BounceBehavior>().setEnemy(target);
+			fb.GetComponent<BounceBehavior>().setControl(gameObject);
 			break;
 		}
 	}

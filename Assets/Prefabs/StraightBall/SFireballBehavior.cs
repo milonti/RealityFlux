@@ -11,6 +11,7 @@ public class SFireballBehavior : MonoBehaviour {
 	
 	public GameObject explosionParticles;
 	public GameObject enemy;
+	public GameObject control;
 	
 	// Use this for initialization
 	void Start () {

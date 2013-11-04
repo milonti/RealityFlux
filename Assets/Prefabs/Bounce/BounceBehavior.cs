@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BounceBehavior : MonoBehaviour {
 	
-	public float speed = 20;
+	public float speed = 40;
 	
 	public CharacterController bounceC;
 	double counter=0;
@@ -12,6 +12,7 @@ public class BounceBehavior : MonoBehaviour {
 	public GameObject explosionParticles;
 	public GameObject enemy;
 	public Vector3 oldEnemyPosition;
+	public GameObject control;
 	// Use this for initialization
 	void Start () {
 		
@@ -68,8 +69,11 @@ public class BounceBehavior : MonoBehaviour {
 	public void setEnemy(GameObject e){
 		enemy=e;	
 	}
+	public void setControl(GameObject e){
+		control=e;	
+	}
 	public void shittyCollisionDetection(int lose){
-		if(Vector3.Distance(fireC.transform.position,control.transform.position)<3&&life>2){
+		if(Vector3.Distance(bounceC.transform.position,control.transform.position)<3&&!control.Equals(enemy)){
 			Debug.Log("hit something");
 			control.GetComponent<CarpetControl>().detract(lose);
 			Destroy(gameObject);
