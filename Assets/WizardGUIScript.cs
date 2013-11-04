@@ -3,10 +3,10 @@ using System.Collections;
 
 public class WizardGUIScript : MonoBehaviour {
 	//int length;
-	float HPcurrent=80;
-	float MPcurrent=100;
-	float maxHealth=100;
-	float maxMana=100;
+	static float HPcurrent=80;
+	static float MPcurrent=100;
+	static float maxHealth=100;
+	static float maxMana=100;
 	void start(){
 		//length=Screen.width/2;
 		//length=100;
@@ -40,21 +40,22 @@ public class WizardGUIScript : MonoBehaviour {
 		}
 		*/
 	}
-	public void addHealth(int h){
+	static public void addHealth(int h){
 		HPcurrent+=h;
 		if(HPcurrent>maxHealth)HPcurrent=maxHealth;
 		
 	}
-	public void addMana(int m){
+	static public void addMana(int m){
 		MPcurrent+=m;
 		if(MPcurrent>maxMana)MPcurrent=maxMana;
 	}
-	public void setMana(int m){
+	static public void setMana(int m){
 		MPcurrent=m;	
 	}
-	public void setHealth(int h){
+	static public void setHealth(int h){
 		HPcurrent=h;	
 	}
-	public float getHealth(){return HPcurrent;}
-	public float getMana(){return MPcurrent;}
+	static public float getHealth(){return HPcurrent;}
+	static public float getMana(){return MPcurrent;}
+	
 }
