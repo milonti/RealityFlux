@@ -27,19 +27,19 @@ public class GameScript : MonoBehaviour {
 		CreatePlayer(np1, true, loc);
 		networkView.RPC("CreatePlayer", RPCMode.Others, np1, false, loc);
 		
-		foreach(NetworkPlayer np in Network.connections){
-			if(np == Network.player){
-				if(Network.peerType == NetworkPeerType.Server) loc = 2;
-				else loc = 1;
-				CreatePlayer(np, true, loc);
-				//networkView.RPC("CreatePlayer", RPCMode.Others, np, false, loc);
-			} else{
-				if(Network.peerType == NetworkPeerType.Server) loc = 1;
-				else loc = 2;
-				CreatePlayer(np, false, loc);
-				//networkView.RPC("CreatePlayer", RPCMode.Others, np, true, loc);
-			}
-		}
+//		foreach(NetworkPlayer np in Network.connections){
+//			if(np == Network.player){
+//				if(Network.peerType == NetworkPeerType.Server) loc = 2;
+//				else loc = 1;
+//				CreatePlayer(np, true, loc);
+//				//networkView.RPC("CreatePlayer", RPCMode.Others, np, false, loc);
+//			} else{
+//				if(Network.peerType == NetworkPeerType.Server) loc = 1;
+//				else loc = 2;
+//				CreatePlayer(np, false, loc);
+//				//networkView.RPC("CreatePlayer", RPCMode.Others, np, true, loc);
+//			}
+//		}
 		
 	}
 	
