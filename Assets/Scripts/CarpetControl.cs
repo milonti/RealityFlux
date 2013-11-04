@@ -28,7 +28,7 @@ public class CarpetControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		moveDir = Vector3.zero;
-		enemyPlaceholder = GameObject.Find("Otherplayer");
+		enemyPlaceholder = GameObject.Find("OtherPlayer");
 		spells = new Spells();
 		if(!(Network.player.ToString() == player)){
 			GetComponentInChildren<AudioListener>().enabled = false;
@@ -41,7 +41,7 @@ public class CarpetControl : MonoBehaviour {
 	void Update(){
 		
 		
-		
+		if(enemyPlaceholder==null)enemyPlaceholder = GameObject.Find("OtherPlayer");
 		if(isMyPlayer){
 			//rotation stuff
 			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
@@ -90,9 +90,7 @@ public class CarpetControl : MonoBehaviour {
 			g.transform.position = dir;
 			g.transform.rotation = rot;
 		}
-		Debug.Log(dir);
-		Debug.Log("Info: " + info);
-		Debug.Log("Player: " + player);
+		
 	}
 	
 	[RPC]
