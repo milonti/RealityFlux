@@ -60,10 +60,6 @@ public class MainMenuGui : MonoBehaviour {
 		GUILayout.BeginVertical("box");
 		GUILayout.Label("Reality Flux");
 		
-		if(GUILayout.Button("test")){
-			Application.LoadLevel("firstScene");
-			loaded = true;
-		}
 		
 		if(!hosting && !joined){
 			gameName = GUILayout.TextField(gameName);
@@ -93,6 +89,7 @@ public class MainMenuGui : MonoBehaviour {
 			
 			if(GUILayout.Button("Stop Hosting Server")){
 				StopServer();
+				hosting = false;
 			}
 			if(Network.connections.Length > 0){
 				GUILayout.Label("Player Found!");
