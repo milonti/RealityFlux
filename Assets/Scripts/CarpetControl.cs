@@ -9,9 +9,8 @@ public class CarpetControl : MonoBehaviour {
 	
 	private Vector3 moveDir;
 
-	public GameObject proj;
-	public GameObject proj2;
-	public GameObject proj3;
+	Spells spells;
+	
 	public Camera look;
 	
 	public float sensitivityX;
@@ -26,6 +25,7 @@ public class CarpetControl : MonoBehaviour {
 	void Start () {
 		moveDir = Vector3.zero;
 		enemyPlaceholder = GameObject.Find("PlaceholderEnemy");
+		spells = new Spells();
 	}
 	
 	// Update is called once per frame
@@ -33,19 +33,19 @@ public class CarpetControl : MonoBehaviour {
 		//spells go here
 		if(Input.GetButtonUp("Fire1")){
 			
-			GameObject fb = (GameObject)Instantiate(proj, look.transform.position + look.transform.forward * 3, look.transform.rotation);
+			GameObject fb = (GameObject)Instantiate(spells.homing, look.transform.position + look.transform.forward * 3, look.transform.rotation);
 			fb.GetComponent<FireballBehavior>().setEnemy(enemyPlaceholder);
 			
 		}
 		if(Input.GetButtonUp("Fire2")){
 			
-			GameObject fb = (GameObject)Instantiate(proj2, look.transform.position + look.transform.forward * 3, look.transform.rotation);
+			GameObject fb = (GameObject)Instantiate(spells.fireball, look.transform.position + look.transform.forward * 3, look.transform.rotation);
 			
 			
 		}
 		if(Input.GetButtonUp("Fire3")){
 			
-			GameObject fb = (GameObject)Instantiate(proj3, look.transform.position + look.transform.forward * 3, look.transform.rotation);
+			GameObject fb = (GameObject)Instantiate(spells.bouncer, look.transform.position + look.transform.forward * 3, look.transform.rotation);
 			fb.GetComponent<BounceBehavior>().setEnemy(enemyPlaceholder);
 			
 		}

@@ -8,12 +8,14 @@ public class MainMenuGui : MonoBehaviour {
 	private HostData[] hostList;
 	private bool isRefreshingHostList = false;
 	
+	
 	bool hosting = false;
 	bool joined = false;
 	bool loaded = false;
 	
 	void Awake(){
 		DontDestroyOnLoad(this);
+	
 	}
 	
 	// Use this for initialization
@@ -46,7 +48,7 @@ public class MainMenuGui : MonoBehaviour {
 		GUILayout.BeginVertical("box");
 		GUILayout.Label("Reality Flux");
 		
-		if(GUILayout.Button("Test")){
+		if(GUILayout.Button("test")){
 			Application.LoadLevel("firstScene");
 			loaded = true;
 		}
@@ -80,7 +82,11 @@ public class MainMenuGui : MonoBehaviour {
 			if(Network.connections.Length > 0){
 				GUILayout.Label("Player Found!");
 				if(GUILayout.Button("Start Game")){
-					Application.LoadLevel("firstScene");
+					//assign players 1 and 2
+					
+					//Start Game	
+					networkView.RPC( "LoadLevel", RPCMode.AllBuffered, "firstScene");
+					
 				}
 			}
 			else GUILayout.Label("Waiting for second player");
