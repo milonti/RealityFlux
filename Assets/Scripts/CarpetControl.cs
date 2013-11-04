@@ -73,7 +73,7 @@ public class CarpetControl : MonoBehaviour {
 	
 	[RPC]
 	void movePlayer (Vector3 moveDir, NetworkPlayer np) {
-		playC.Move(moveDir * Time.deltaTime * speed);
+		if(player == np )playC.Move(moveDir * Time.deltaTime * speed);
 	}
 	
 	[RPC]
