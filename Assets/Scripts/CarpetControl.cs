@@ -5,7 +5,7 @@ public class CarpetControl : MonoBehaviour {
 	
 	public CharacterController playC;
 	public float speed;
-	public GameObject enemy;
+	public GameObject enemyPlaceholder;
 	
 	private Vector3 moveDir;
 
@@ -24,7 +24,7 @@ public class CarpetControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		moveDir = Vector3.zero;
-		
+		enemyPlaceholder = GameObject.Find("PlaceholderEnemy");
 	}
 	
 	// Update is called once per frame
@@ -33,13 +33,13 @@ public class CarpetControl : MonoBehaviour {
 		if(Input.GetButtonUp("Fire1")){
 			
 			GameObject fb = (GameObject)Instantiate(proj, look.transform.position + look.transform.forward * 3, look.transform.rotation);
-			fb.GetComponent<FireballBehavior>().enemy = enemy;
+			fb.GetComponent<FireballBehavior>().setEnemy(enemyPlaceholder);
 			
 		}
 		if(Input.GetButtonUp("Fire2")){
 			
 			GameObject fb = (GameObject)Instantiate(proj2, look.transform.position + look.transform.forward * 3, look.transform.rotation);
-			fb.GetComponent<FireballBehavior>().enemy = enemy;
+			
 			
 		}
 		

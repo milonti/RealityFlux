@@ -19,7 +19,7 @@ public class FireballBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		life+=Time.deltaTime;
+		//life+=Time.deltaTime;
 		fireC.Move(transform.forward * speed * Time.deltaTime);
 		Vector3 direction=(enemy.transform.position-fireC.transform.localPosition);
 		direction.Normalize();
@@ -27,15 +27,13 @@ public class FireballBehavior : MonoBehaviour {
 		test.SetLookRotation(direction,fireC.transform.up);
 		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
 		fireC.transform.rotation = Quaternion.Lerp(fireC.transform.rotation,test, Time.deltaTime);
-		//life+=Time.deltaTime;
+		life+=Time.deltaTime;
 		if(life >=10) Destroy(gameObject);
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
-		if(!hit.collider.name.Equals("Terrain") && !hit.collider.name.Equals("Fireball(Clone)")){
-			hit.collider.rigidbody.AddForceAtPosition(transform.forward * speed * 10, hit.point);
-		}
+		
 		Destroy(gameObject);
 	}
 	public void setEnemy(GameObject e){
