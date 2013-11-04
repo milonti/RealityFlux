@@ -35,6 +35,9 @@ public class CarpetControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update(){
+		
+		playC.Move(moveDir);
+		
 		if(isMyPlayer){
 			//rotation stuff
 			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
@@ -73,7 +76,7 @@ public class CarpetControl : MonoBehaviour {
 	
 	[RPC]
 	void movePlayer (Vector3 moveDir, NetworkPlayer np) {
-		if(player == np )playC.Move(moveDir * Time.deltaTime * speed);
+		if(player == np )this.moveDir = moveDir * Time.deltaTime * speed;
 	}
 	
 	[RPC]
@@ -93,6 +96,8 @@ public class CarpetControl : MonoBehaviour {
 			break;
 		}
 	}
+	
+	
 	
 	
 	
