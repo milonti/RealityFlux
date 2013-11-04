@@ -66,14 +66,14 @@ public class CarpetControl : MonoBehaviour {
 			}	
 			//spells go here
 			if(Input.GetButtonUp("Fire1")){
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation,player);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			
 			}
 			if(Input.GetButtonUp("Fire2")){
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation,player);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			}
 			if(Input.GetButtonUp("Fire3")){
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation,player);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			
 			}
 		}
@@ -95,18 +95,13 @@ public class CarpetControl : MonoBehaviour {
 	}
 	
 	[RPC]
-	void castSpell(string sName, Vector3 pos, Vector3 forw, Quaternion rot,string shootingPlayer){
+	void castSpell(string sName, Vector3 pos, Vector3 forw, Quaternion rot, string shot){
 		GameObject fb = null;
-		//if(player==null)player="0";
-		Debug.Log (player);
-		//Debug.Log(shootingPlayer+" "+player+"colon");
 		GameObject target=null;
-		if(player.Equals("")&&!shootingPlayer.Equals(player)){
-			target=gameObject;
-			//target=enemy;
-			//&&shootingPlayer.Equals(player)
+		if(!shot.Equals(player)){
+			target = gameObject;
 		}
-		else target=enemy;
+		else target = enemy;
 		
 		switch(sName){
 		case "homing": 
