@@ -18,7 +18,7 @@ public class WizardGUIScript : MonoBehaviour {
 		GUI.Box (new Rect(0,Screen.height-40, Screen.width/2-80, 40), HPcurrent + "/" + maxHealth);   
 		GUI.Box (new Rect(Screen.width/2+80,Screen.height-40, Screen.width/2-80, 40), MPcurrent + "/" + maxMana); 
 		GUI.Box(new Rect(Screen.width/2-80,Screen.height-80,160,80), "");
-		GUI.Box(new Rect(Screen.width/2,Screen.height/2, 10, 10), "");
+		GUI.Box(new Rect(Screen.width/2-5,Screen.height/2-5, 10, 10), "");
 		GUI.backgroundColor = Color.red;
 		GUI.color=Color.red;
 		GUI.Box (new Rect(0,Screen.height-40,HPcurrent/maxHealth*(Screen.width/2-80), 40), "","button");   
