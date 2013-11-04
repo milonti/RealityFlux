@@ -36,7 +36,7 @@ public class CarpetControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update(){
 		
-		playC.Move(moveDir);
+		
 		
 		if(isMyPlayer){
 			//rotation stuff
@@ -74,9 +74,20 @@ public class CarpetControl : MonoBehaviour {
 		}
 	}
 	
+	void FixedUpdate () {	
+		if (Network.isServer) 
+		{
+			if (moveDir.magnitude> 0.001) 
+			{
+	    	    playC.Move( moveDir * speed * Time.deltaTime);
+			}
+		}
+	}
+	
 	[RPC]
-	void movePlayer (Vector3 md, NetworkPlayer np) {
-		this.moveDir = md * Time.deltaTime * speed;
+	void movePlayer(Vector3 dir, NetworkPlayer info)
+	{	
+		moveDir = dir;
 	}
 	
 	[RPC]
@@ -97,7 +108,22 @@ public class CarpetControl : MonoBehaviour {
 		}
 	}
 	
-	
+	// stream state changes (in this case, position, but it could be anything you want) to the clients
+	void OnSerializeNetworkView ( BitStream stream ,   NetworkMessageInfo info  ){
+		if (stream.isWriting){
+			//Executed on the owner of this networkview; 
+			//The server sends it's position over the network
+			Vector3 pos = transform.position;		
+			stream.Serialize(ref pos);//"Encode" it, and send it
+					
+		} else {
+			//Executed on the others; 
+			//receive a position and set the object to it
+			Vector3 posReceive = Vector3.zero;
+			stream.Serialize(ref posReceive); //"Decode" it and receive it
+			transform.position = posReceive;
+		}
+	}
 	
 	
 	
