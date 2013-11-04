@@ -22,7 +22,7 @@ public class CarpetControl : MonoBehaviour {
 	public float maximumY = 45f;
 	
 	public bool isMyPlayer = false;
-	public NetworkPlayer player;
+	public string player;
 	public int health = 100;
 	
 	// Use this for initialization
@@ -30,6 +30,10 @@ public class CarpetControl : MonoBehaviour {
 		moveDir = Vector3.zero;
 		enemyPlaceholder = GameObject.Find("PlaceholderEnemy");
 		spells = new Spells();
+		if(!(Network.player.ToString() == player)){
+			GetComponentInChildren<AudioListener>().enabled = false;
+			GetComponentInChildren<Camera>().enabled = false;
+		}
 		
 	}
 	
@@ -55,8 +59,11 @@ public class CarpetControl : MonoBehaviour {
 			moveDir += transform.right * Input.GetAxis("Horizontal");
 			moveDir += transform.up * Input.GetAxis("Ascend");
 			
-			networkView.RPC ("movePlayer", RPCMode.AllBuffered, moveDir, player);
 			
+			if(moveDir.magnitude > 0.001){
+				networkView.RPC ("movePlayer", RPCMode.OthersBuffered, moveDir, player);
+				playC.Move(moveDir * Time.deltaTime * speed);
+			}	
 			//spells go here
 			if(Input.GetButtonUp("Fire1")){
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation);
@@ -71,14 +78,16 @@ public class CarpetControl : MonoBehaviour {
 			}
 		}
 		
-		playC.Move(moveDir * Time.deltaTime * speed);
+		
 	}
 	
 	
 	[RPC]
-	void movePlayer(Vector3 dir, NetworkPlayer info)
+	void movePlayer(Vector3 dir, string info)
 	{	
-		moveDir = dir;
+		if(info.Equals(player)) {
+			playC.Move(dir * Time.deltaTime * speed);
+		}
 	}
 	
 	[RPC]

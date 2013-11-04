@@ -51,7 +51,7 @@ public class GameScript : MonoBehaviour {
 			MMG.playerList[np].avatar.GetComponent<CarpetControl>().isMyPlayer = true;
 			MMG.playerList[np].avatar.GetComponentInChildren<Camera>().enabled = true;
 		} else MMG.playerList[np].avatar.GetComponentInChildren<Camera>().enabled = false;
-		MMG.playerList[np].avatar.GetComponent<CarpetControl>().player = np;
+		MMG.playerList[np].avatar.GetComponent<CarpetControl>().player = np.ToString();
 	}
 	
 	// Update is called once per frame
