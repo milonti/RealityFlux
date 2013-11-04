@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BounceBehavior : MonoBehaviour {
 	
-	public float speed = 40;
+	public float speed = 80;
 	
 	public CharacterController bounceC;
 	double counter=0;
