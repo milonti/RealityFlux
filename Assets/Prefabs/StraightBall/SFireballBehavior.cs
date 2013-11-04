@@ -40,7 +40,7 @@ public class SFireballBehavior : MonoBehaviour {
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
-		WizardGUIScript.addHealth(-5);
+		//WizardGUIScript.addHealth(-5);
 		GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
 		if(hit.collider.name.Equals("Hitbox")){
 				//insert hit something report here.

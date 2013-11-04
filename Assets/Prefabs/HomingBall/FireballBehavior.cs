@@ -54,6 +54,7 @@ public class FireballBehavior : MonoBehaviour {
 	}
 	public void shittyCollisionDetection(int lose){
 		if(Vector3.Distance(gameObject.transform.position,enemy.transform.position)<5){
+			Debug.Log("hit something");
 			control.GetComponent<CarpetControl>().detract(lose);
 			Destroy(gameObject);
 			
