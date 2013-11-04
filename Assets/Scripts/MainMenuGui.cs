@@ -27,6 +27,7 @@ public class MainMenuGui : MonoBehaviour {
 	void Awake(){
 		DontDestroyOnLoad(this);
 		MMG = this;
+		Network.SetLevelPrefix(0);
 	}
 	
 	// Use this for initialization
@@ -98,7 +99,8 @@ public class MainMenuGui : MonoBehaviour {
 				if(GUILayout.Button("Start Game")){
 					//assign players 1 and 2
 					
-					//Start Game	
+					//Start Game
+					
 					networkView.RPC( "LoadLevel", RPCMode.AllBuffered, "firstScene");
 					
 				}
@@ -160,7 +162,11 @@ public class MainMenuGui : MonoBehaviour {
 	
 	[RPC]
 	void LoadLevel(string level){
+		Network.isMessageQueueRunning = false;
+		Network.SetLevelPrefix(1);
 		Application.LoadLevel(level);
+		
+		Network.isMessageQueueRunning = true;
 		loaded = true;
 	}
 	
