@@ -48,10 +48,10 @@ public class BounceBehavior : MonoBehaviour {
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		//GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
 		//if(hit.collider.name.Equals("Terrain")){
-			Debug.Log(hit.collider.name);
+			//Debug.Log(hit.collider.name);
 			//bounce!
 			//do the animation
-			if(hit.collider.name.Equals("Hitbox")){
+			if(hit.collider.name.Equals("OtherPlayer")){
 				//insert hit something report here.
 				Destroy(gameObject);
 			}

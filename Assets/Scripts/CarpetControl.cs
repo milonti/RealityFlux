@@ -107,7 +107,7 @@ public class CarpetControl : MonoBehaviour {
 		case "homing": 
 			fb = (GameObject)Instantiate(spells.homing, pos + forw * 3, rot);
 			fb.GetComponent<FireballBehavior>().setEnemy(target);
-			fb.GetComponent<FireballBehavior>().setControl(target);
+			fb.GetComponent<FireballBehavior>().setControl(gameObject);
 			break;
 		case "fireball":
 			fb = (GameObject)Instantiate(spells.fireball, pos + forw * 3, rot);
@@ -119,8 +119,18 @@ public class CarpetControl : MonoBehaviour {
 			break;
 		}
 	}
-	
-	
+	void OnCollisionEnter(Collision collision) {
+		Debug.Log("test");
+        Debug.Log(collision.collider.name);
+		
+		Debug.Log(collision.gameObject.name);
+		//Debug.Log (collision.);
+		int i=1;
+        
+    }
+	public void detract(int i){
+		WizardGUIScript.addHealth(-i);
+	}
 	
 	
 	

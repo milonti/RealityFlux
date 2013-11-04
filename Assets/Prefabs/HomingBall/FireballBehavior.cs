@@ -36,11 +36,11 @@ public class FireballBehavior : MonoBehaviour {
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
-		Debug.Log(hit.controller.name);
-		Debug.Log(hit);
+		//Debug.Log(hit.controller.name);
+		//Debug.Log(hit);
 		
 		if(hit.collider.name.Equals("Hitbox")){
-			WizardGUIScript.addHealth(-5);
+			
 				//insert hit something report here.
 				//Destroy(gameObject);
 			}
@@ -50,11 +50,11 @@ public class FireballBehavior : MonoBehaviour {
 		enemy=e;	
 	}
 	public void setControl(GameObject e){
-		enemy=e;	
+		control=e;	
 	}
 	public void shittyCollisionDetection(int lose){
 		if(Vector3.Distance(gameObject.transform.position,enemy.transform.position)<5){
-			
+			control.GetComponent<CarpetControl>().detract(lose);
 			Destroy(gameObject);
 			
 		}
