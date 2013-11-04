@@ -24,7 +24,7 @@ public class WizardGUIScript : MonoBehaviour {
 		GUI.Box (new Rect(0,0,HPcurrent/maxHealth*(Screen.width/2-80), 40), "","button");   
 		GUI.backgroundColor = Color.blue;
 		GUI.color=Color.blue;
-		GUI.Box (new Rect(Screen.width/2+80,0,MPcurrent/maxMana*(Screen.width/2-80), Screen.width), "","button");
+		GUI.Box (new Rect(Screen.width/2+80,0,MPcurrent/maxMana*(Screen.width/2-80), 40), "","button");
 		GUI.color=Color.yellow;
 		if(HPcurrent<0)GUI.Box (new Rect( Screen.width/2-40,Screen.height/2-20,80,40), "YOU LOSE","button");
 		
