@@ -3,12 +3,13 @@ using System.Collections;
 
 public class BounceBehavior : MonoBehaviour {
 	
-	public float speed = 80;
+	public float speed = 120;
 	
 	public CharacterController bounceC;
 	double counter=0;
 	public float life=0;
 	public bool hitGround=false;
+	public bool falling=false;
 	public GameObject explosionParticles;
 	public GameObject enemy;
 	public Vector3 oldEnemyPosition;
@@ -29,7 +30,7 @@ public class BounceBehavior : MonoBehaviour {
 			test.SetLookRotation(direction,bounceC.transform.up);
 			bounceC.transform.rotation=test;
 			bounceC.Move(transform.forward * speed * Time.deltaTime);
-			if(counter>=6)hitGround=false;
+			if(counter>=2)hitGround=false;
 			
 		}
 		else bounceC.Move(new Vector3(0,-1,0)*Time.deltaTime*speed);
