@@ -5,7 +5,7 @@ public class CarpetControl : MonoBehaviour {
 	
 	public CharacterController playC;
 	public float speed;
-	public GameObject enemyPlaceholder;
+	public GameObject enemy;
 	
 	public Vector3 moveDir;
 
@@ -22,13 +22,13 @@ public class CarpetControl : MonoBehaviour {
 	public float maximumY = 45f;
 	
 	public bool isMyPlayer = false;
-	public string player;
+	public string player=null;
 	public int health = 100;
 	
 	// Use this for initialization
 	void Start () {
 		moveDir = Vector3.zero;
-		enemyPlaceholder = GameObject.Find("OtherPlayer");
+		enemy = GameObject.Find("OtherPlayer");
 		spells = new Spells();
 		if(!(Network.player.ToString() == player)){
 			GetComponentInChildren<AudioListener>().enabled = false;
@@ -41,7 +41,7 @@ public class CarpetControl : MonoBehaviour {
 	void Update(){
 		
 		
-		if(enemyPlaceholder==null)enemyPlaceholder = GameObject.Find("OtherPlayer");
+		if(enemy==null)enemy = GameObject.Find("OtherPlayer");
 		if(isMyPlayer){
 			//rotation stuff
 			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
@@ -66,14 +66,14 @@ public class CarpetControl : MonoBehaviour {
 			}	
 			//spells go here
 			if(Input.GetButtonUp("Fire1")){
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation,player);
 			
 			}
 			if(Input.GetButtonUp("Fire2")){
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation,player);
 			}
 			if(Input.GetButtonUp("Fire3")){
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation,player);
 			
 			}
 		}
@@ -86,27 +86,39 @@ public class CarpetControl : MonoBehaviour {
 	void movePlayer(Vector3 dir, string info, Quaternion rot)
 	{	
 		if(!info.Equals(player)) {
-			GameObject g = GameObject.Find("OtherPlayer");
-			g.transform.position = dir;
-			g.transform.rotation = rot;
+			//GameObject g = GameObject.Find("OtherPlayer");
+			
+			enemy.transform.position = dir;
+			enemy.transform.rotation = rot;
 		}
 		
 	}
 	
 	[RPC]
-	void castSpell(string sName, Vector3 pos, Vector3 forw, Quaternion rot){
+	void castSpell(string sName, Vector3 pos, Vector3 forw, Quaternion rot,string shootingPlayer){
 		GameObject fb = null;
+		//if(player==null)player="0";
+		Debug.Log (player);
+		//Debug.Log(shootingPlayer+" "+player+"colon");
+		GameObject target=null;
+		if(player.Equals("")&&!shootingPlayer.Equals(player)){
+			target=gameObject;
+			//target=enemy;
+			//&&shootingPlayer.Equals(player)
+		}
+		else target=enemy;
+		
 		switch(sName){
 		case "homing": 
 			fb = (GameObject)Instantiate(spells.homing, pos + forw * 3, rot);
-			fb.GetComponent<FireballBehavior>().setEnemy(enemyPlaceholder);
+			fb.GetComponent<FireballBehavior>().setEnemy(target);
 			break;
 		case "fireball":
 			fb = (GameObject)Instantiate(spells.fireball, pos + forw * 3, rot);
 			break;
 		case "bouncer":
 			fb = (GameObject)Instantiate(spells.bouncer, pos + forw * 3, rot);
-			fb.GetComponent<BounceBehavior>().setEnemy(enemyPlaceholder);
+			fb.GetComponent<BounceBehavior>().setEnemy(target);
 			break;
 		}
 	}
