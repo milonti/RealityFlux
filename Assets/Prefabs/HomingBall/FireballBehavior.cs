@@ -30,7 +30,7 @@ public class FireballBehavior : MonoBehaviour {
 		test.SetLookRotation(direction,fireC.transform.up);
 		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
 		fireC.transform.rotation = Quaternion.Lerp(fireC.transform.rotation,test, Time.deltaTime);
-		//shittyCollisionDetection(5);
+		shittyCollisionDetection(5);
 		
 	}
 	
@@ -53,7 +53,7 @@ public class FireballBehavior : MonoBehaviour {
 		control=e;	
 	}
 	public void shittyCollisionDetection(int lose){
-		if(Vector3.Distance(gameObject.transform.position,enemy.transform.position)<5){
+		if(Vector3.Distance(fireC.transform.position,control.transform.position)<10&&life>2){
 			Debug.Log("hit something");
 			control.GetComponent<CarpetControl>().detract(lose);
 			Destroy(gameObject);
