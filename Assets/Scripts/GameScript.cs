@@ -21,24 +21,36 @@ public class GameScript : MonoBehaviour {
 	}
 	
 	void Start(){
-		
+		NetworkPlayer np = Network.player;
 		int loc = 1;
 		if(Network.peerType == NetworkPeerType.Server) loc = 2;
-		
-		CreatePlayer(Network.player, true, loc);
-		NetworkPlayer np = Network.player;
+		CreatePlayer(np, true, loc);
 		networkView.RPC("CreatePlayer", RPCMode.Others, np, false, loc);
+		
+//		foreach(NetworkPlayer np in Network.connections){
+//			if(np == Network.player){
+//				if(Network.peerType == NetworkPeerType.Server) loc = 2;
+//				else loc = 1;
+//				CreatePlayer(np, true, loc);
+//				networkView.RPC("CreatePlayer", RPCMode.Others, np, false, loc);
+//			} else{
+//				if(Network.peerType == NetworkPeerType.Server) loc = 1;
+//				else loc = 2;
+//				CreatePlayer(np, false, loc);
+//				networkView.RPC("CreatePlayer", RPCMode.Others, np, true, loc);
+//			}
+//		}
 		
 	}
 	
 	[RPC]
-	void CreatePlayer(NetworkPlayer networkPlayer, bool isMe, int loc){
-		player = MMG.playerList[networkPlayer];
-		player.avatar = Instantiate(playerPrefab, GameObject.Find("SpawnPoint"+loc).transform.position, new Quaternion(0f,0f,0f,0f)) as GameObject;
+	void CreatePlayer(NetworkPlayer np, bool isMe, int loc){
+		player = MMG.playerList[np];
+		MMG.playerList[np].avatar = Instantiate(playerPrefab, GameObject.Find("SpawnPoint"+loc).transform.position, new Quaternion(0f,0f,0f,0f)) as GameObject;
 		if(isMe){
-			player.avatar.GetComponent<CarpetControl>().isMyPlayer = true;
-			player.avatar.GetComponentInChildren<Camera>().enabled = true;
-		} else player.avatar.GetComponentInChildren<Camera>().enabled = false;
+			MMG.playerList[np].avatar.GetComponent<CarpetControl>().isMyPlayer = true;
+			MMG.playerList[np].avatar.GetComponentInChildren<Camera>().enabled = true;
+		} else MMG.playerList[np].avatar.GetComponentInChildren<Camera>().enabled = false;
 			
 	}
 	
