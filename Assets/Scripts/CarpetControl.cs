@@ -61,8 +61,8 @@ public class CarpetControl : MonoBehaviour {
 			
 			
 			if(moveDir.magnitude > 0.001){
-				networkView.RPC ("movePlayer", RPCMode.OthersBuffered, moveDir, player);
 				playC.Move(moveDir * Time.deltaTime * speed);
+				networkView.RPC ("movePlayer", RPCMode.OthersBuffered, transform.position, player);
 			}	
 			//spells go here
 			if(Input.GetButtonUp("Fire1")){
@@ -86,7 +86,7 @@ public class CarpetControl : MonoBehaviour {
 	void movePlayer(Vector3 dir, string info)
 	{	
 		if(info.Equals(player)) {
-			playC.Move(dir * Time.deltaTime * speed);
+			transform.position = dir;
 		}
 	}
 	
