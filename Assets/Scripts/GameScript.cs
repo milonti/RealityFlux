@@ -27,7 +27,7 @@ public class GameScript : MonoBehaviour {
 		
 		CreatePlayer(Network.player, true, loc);
 		NetworkPlayer np = Network.player;
-		networkView.RPC("CreatePlayer", RPCMode.OthersBuffered, np, false, loc);
+		networkView.RPC("CreatePlayer", RPCMode.Others, np, false, loc);
 		
 	}
 	

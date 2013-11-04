@@ -58,14 +58,14 @@ public class CarpetControl : MonoBehaviour {
 			
 			//spells go here
 			if(Input.GetButtonUp("Fire1")){
-				networkView.RPC("castSpell", RPCMode.All, "homing", look.transform.position, look.transform.forward, look.transform.rotation);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation);
 			
 			}
 			if(Input.GetButtonUp("Fire2")){
-				networkView.RPC("castSpell", RPCMode.All, "fireball", look.transform.position, look.transform.forward, look.transform.rotation);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation);
 			}
 			if(Input.GetButtonUp("Fire3")){
-				networkView.RPC("castSpell", RPCMode.All, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation);
 			
 			}
 		}
@@ -78,7 +78,7 @@ public class CarpetControl : MonoBehaviour {
 	
 	[RPC]
 	void castSpell(string sName, Vector3 pos, Vector3 forw, Quaternion rot){
-		GameObject fb = (GameObject)Instantiate(spells.homing, pos + forw * 3, rot);
+		GameObject fb = null;
 		switch(sName){
 		case "homing": 
 			fb = (GameObject)Instantiate(spells.homing, pos + forw * 3, rot);
