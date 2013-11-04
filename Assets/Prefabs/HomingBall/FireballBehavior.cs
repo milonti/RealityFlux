@@ -11,6 +11,7 @@ public class FireballBehavior : MonoBehaviour {
 	
 	public GameObject explosionParticles;
 	public GameObject enemy;
+	public GameObject control;
 	
 	// Use this for initialization
 	void Start () {
@@ -29,6 +30,7 @@ public class FireballBehavior : MonoBehaviour {
 		test.SetLookRotation(direction,fireC.transform.up);
 		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
 		fireC.transform.rotation = Quaternion.Lerp(fireC.transform.rotation,test, Time.deltaTime);
+		//shittyCollisionDetection(5);
 		
 	}
 	
@@ -36,7 +38,7 @@ public class FireballBehavior : MonoBehaviour {
 		GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
 		Debug.Log(hit.controller.name);
 		Debug.Log(hit);
-		WizardGUIScript.addHealth(-5);
+		
 		if(hit.collider.name.Equals("Hitbox")){
 			WizardGUIScript.addHealth(-5);
 				//insert hit something report here.
@@ -46,5 +48,16 @@ public class FireballBehavior : MonoBehaviour {
 	}
 	public void setEnemy(GameObject e){
 		enemy=e;	
+	}
+	public void setControl(GameObject e){
+		enemy=e;	
+	}
+	public void shittyCollisionDetection(int lose){
+		if(Vector3.Distance(gameObject.transform.position,enemy.transform.position)<5){
+			
+			Destroy(gameObject);
+			
+		}
+		
 	}
 }

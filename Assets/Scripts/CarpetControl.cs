@@ -107,9 +107,11 @@ public class CarpetControl : MonoBehaviour {
 		case "homing": 
 			fb = (GameObject)Instantiate(spells.homing, pos + forw * 3, rot);
 			fb.GetComponent<FireballBehavior>().setEnemy(target);
+			fb.GetComponent<FireballBehavior>().setControl(target);
 			break;
 		case "fireball":
 			fb = (GameObject)Instantiate(spells.fireball, pos + forw * 3, rot);
+			fb.GetComponent<SFireballBehavior>().setEnemy(target);
 			break;
 		case "bouncer":
 			fb = (GameObject)Instantiate(spells.bouncer, pos + forw * 3, rot);

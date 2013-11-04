@@ -10,7 +10,7 @@ public class SFireballBehavior : MonoBehaviour {
 	public float life;
 	
 	public GameObject explosionParticles;
-	
+	public GameObject enemy;
 	
 	// Use this for initialization
 	void Start () {
@@ -32,8 +32,15 @@ public class SFireballBehavior : MonoBehaviour {
 		life+=Time.deltaTime;
 		if(life >=3) Destroy(gameObject);
 	}
+	public void setEnemy(GameObject e){
+		enemy=e;	
+	}
+	public void setControl(GameObject e){
+		enemy=e;	
+	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
+		WizardGUIScript.addHealth(-5);
 		GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
 		if(hit.collider.name.Equals("Hitbox")){
 				//insert hit something report here.
