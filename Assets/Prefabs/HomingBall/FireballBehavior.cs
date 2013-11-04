@@ -33,7 +33,10 @@ public class FireballBehavior : MonoBehaviour {
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
-		
+		if(hit.collider.name.Equals("Hitbox")){
+				//insert hit something report here.
+				//Destroy(gameObject);
+			}
 		Destroy(gameObject);
 	}
 	public void setEnemy(GameObject e){

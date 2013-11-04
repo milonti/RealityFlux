@@ -11,6 +11,7 @@ public class CarpetControl : MonoBehaviour {
 
 	public GameObject proj;
 	public GameObject proj2;
+	public GameObject proj3;
 	public Camera look;
 	
 	public float sensitivityX;
@@ -40,6 +41,12 @@ public class CarpetControl : MonoBehaviour {
 			
 			GameObject fb = (GameObject)Instantiate(proj2, look.transform.position + look.transform.forward * 3, look.transform.rotation);
 			
+			
+		}
+		if(Input.GetButtonUp("Fire3")){
+			
+			GameObject fb = (GameObject)Instantiate(proj3, look.transform.position + look.transform.forward * 3, look.transform.rotation);
+			fb.GetComponent<BounceBehavior>().setEnemy(enemyPlaceholder);
 			
 		}
 		
