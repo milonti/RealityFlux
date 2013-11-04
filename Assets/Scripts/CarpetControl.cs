@@ -7,7 +7,7 @@ public class CarpetControl : MonoBehaviour {
 	public float speed;
 	public GameObject enemyPlaceholder;
 	
-	private Vector3 moveDir;
+	public Vector3 moveDir;
 
 	Spells spells;
 	
