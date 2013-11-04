@@ -29,7 +29,7 @@ public class CarpetControl : MonoBehaviour {
 	void Start () {
 		moveDir = Vector3.zero;
 		WizardGUIScript.setMana(50);
-		WizardGUIScript.setHealth(93);
+		WizardGUIScript.setHealth(100);
 		enemy = GameObject.Find("OtherPlayer");
 		spells = new Spells();
 		if(!(Network.player.ToString() == player)){
@@ -43,7 +43,7 @@ public class CarpetControl : MonoBehaviour {
 	void Update(){
 		
 		WizardGUIScript.addMana(1f*Time.deltaTime);
-		WizardGUIScript.addHealth(0.2f*Time.deltaTime);
+		//WizardGUIScript.addHealth(0.2f*Time.deltaTime);
 		if(enemy==null)enemy = GameObject.Find("OtherPlayer");
 		if(isMyPlayer){
 			//rotation stuff
@@ -112,17 +112,17 @@ public class CarpetControl : MonoBehaviour {
 		
 		switch(sName){
 		case "homing": 
-			fb = (GameObject)Instantiate(spells.homing, pos + forw * 3, rot);
+			fb = (GameObject)Instantiate(spells.homing, pos + forw * 5, rot);
 			fb.GetComponent<FireballBehavior>().setEnemy(target);
 			fb.GetComponent<FireballBehavior>().setControl(gameObject);
 			break;
 		case "fireball":
-			fb = (GameObject)Instantiate(spells.fireball, pos + forw * 3, rot);
+			fb = (GameObject)Instantiate(spells.fireball, pos + forw * 5, rot);
 			fb.GetComponent<SFireballBehavior>().setEnemy(target);
 			fb.GetComponent<SFireballBehavior>().setControl(gameObject);
 			break;
 		case "bouncer":
-			fb = (GameObject)Instantiate(spells.bouncer, pos + forw * 3, rot);
+			fb = (GameObject)Instantiate(spells.bouncer, pos + forw * 8, rot);
 			fb.GetComponent<BounceBehavior>().setEnemy(target);
 			fb.GetComponent<BounceBehavior>().setControl(gameObject);
 			break;

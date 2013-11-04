@@ -3,11 +3,11 @@ using System.Collections;
 
 public class FireballBehavior : MonoBehaviour {
 	
-	public float speed = 10;
+	public float speed = 15;
 	
 	public CharacterController fireC;
 	
-	public float life=5;
+	public float life=2;
 	
 	public GameObject explosionParticles;
 	public GameObject enemy;
@@ -29,8 +29,8 @@ public class FireballBehavior : MonoBehaviour {
 		Quaternion test=new Quaternion(0,0,0,0);
 		test.SetLookRotation(direction,fireC.transform.up);
 		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
-		fireC.transform.rotation = Quaternion.Lerp(fireC.transform.rotation,test, Time.deltaTime);
-		shittyCollisionDetection(4);
+		fireC.transform.rotation = Quaternion.Lerp(fireC.transform.rotation,test, Time.deltaTime*2);
+		shittyCollisionDetection(8);
 		
 	}
 	
