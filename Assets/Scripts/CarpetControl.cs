@@ -21,52 +21,95 @@ public class CarpetControl : MonoBehaviour {
 	public float minimumY = -45f;
 	public float maximumY = 45f;
 	
+	public bool isMyPlayer = false;
+	public NetworkPlayer player;
+	public int health = 100;
+	
 	// Use this for initialization
 	void Start () {
 		moveDir = Vector3.zero;
 		enemyPlaceholder = GameObject.Find("PlaceholderEnemy");
 		spells = new Spells();
+		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		//spells go here
-		if(Input.GetButtonUp("Fire1")){
+	void Update(){
+		if(isMyPlayer){
+			//rotation stuff
+			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
+		
+			look.transform.localEulerAngles = new Vector3(-rotationY, 0, 0);
+		
+			transform.Rotate(transform.up, sensitivityX * Input.GetAxis("Mouse X"));
+		
+		
+			//movement stuff
+			moveDir = Vector3.zero;
+		
+			moveDir += transform.forward * Input.GetAxis("Vertical");
+			moveDir += transform.right * Input.GetAxis("Horizontal");
+			moveDir += transform.up * Input.GetAxis("Ascend");
 			
-			GameObject fb = (GameObject)Instantiate(spells.homing, look.transform.position + look.transform.forward * 3, look.transform.rotation);
-			fb.GetComponent<FireballBehavior>().setEnemy(enemyPlaceholder);
+			NetworkPlayer np = Network.player;
 			
+			networkView.RPC ("movePlayer", RPCMode.All, moveDir, np);
+			
+			//spells go here
+			if(Input.GetButtonUp("Fire1")){
+				networkView.RPC("castSpell", RPCMode.All, "homing", look.transform.position, look.transform.forward, look.transform.rotation);
+			
+			}
+			if(Input.GetButtonUp("Fire2")){
+				networkView.RPC("castSpell", RPCMode.All, "fireball", look.transform.position, look.transform.forward, look.transform.rotation);
+			}
+			if(Input.GetButtonUp("Fire3")){
+				networkView.RPC("castSpell", RPCMode.All, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation);
+			
+			}
 		}
-		if(Input.GetButtonUp("Fire2")){
-			
-			GameObject fb = (GameObject)Instantiate(spells.fireball, look.transform.position + look.transform.forward * 3, look.transform.rotation);
-			
-			
-		}
-		if(Input.GetButtonUp("Fire3")){
-			
-			GameObject fb = (GameObject)Instantiate(spells.bouncer, look.transform.position + look.transform.forward * 3, look.transform.rotation);
-			fb.GetComponent<BounceBehavior>().setEnemy(enemyPlaceholder);
-			
-		}
-		
-		//rotation stuff
-		rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-		rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
-		
-		look.transform.localEulerAngles = new Vector3(-rotationY, 0, 0);
-		
-		transform.Rotate(transform.up, sensitivityX * Input.GetAxis("Mouse X"));
-		
-		
-		//movement stuff
-		moveDir = Vector3.zero;
-		
-		moveDir += transform.forward * Input.GetAxis("Vertical");
-		moveDir += transform.right * Input.GetAxis("Horizontal");
-		
-		moveDir += transform.up * Input.GetAxis("Ascend");
-		
-		playC.Move(moveDir * Time.deltaTime * speed);
 	}
+	
+	[RPC]
+	void movePlayer (Vector3 moveDir, NetworkPlayer np) {
+		if( np.Equals(Network.player)) playC.Move(moveDir * Time.deltaTime * speed);
+	}
+	
+	[RPC]
+	void castSpell(string sName, Vector3 pos, Vector3 forw, Quaternion rot){
+		GameObject fb = (GameObject)Instantiate(spells.homing, pos + forw * 3, rot);
+		switch(sName){
+		case "homing": 
+			fb = (GameObject)Instantiate(spells.homing, pos + forw * 3, rot);
+			fb.GetComponent<FireballBehavior>().setEnemy(enemyPlaceholder);
+			break;
+		case "fireball":
+			fb = (GameObject)Instantiate(spells.fireball, pos + forw * 3, rot);
+			break;
+		case "bouncer":
+			fb = (GameObject)Instantiate(spells.bouncer, pos + forw * 3, rot);
+			fb.GetComponent<BounceBehavior>().setEnemy(enemyPlaceholder);
+			break;
+		}
+	}
+	
+	// stream state changes (in this case, position, but it could be anything you want) to the clients
+	void OnSerializeNetworkView ( BitStream stream ,   NetworkMessageInfo info  ){
+		if (stream.isWriting){
+			//Executed on the owner of this networkview; 
+			//The server sends it's position over the network
+			Vector3 pos = transform.position;		
+			stream.Serialize(ref pos);//"Encode" it, and send it
+					
+		} else {
+			//Executed on the others; 
+			//receive a position and set the object to it
+			Vector3 posReceive = Vector3.zero;
+			stream.Serialize(ref posReceive); //"Decode" it and receive it
+			transform.position = posReceive;
+		}
+	}
+	
+	
 }

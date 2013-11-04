@@ -21,14 +21,15 @@ public class FireballBehavior : MonoBehaviour {
 	void Update () {
 		//life+=Time.deltaTime;
 		fireC.Move(transform.forward * speed * Time.deltaTime);
+		life+=Time.deltaTime;
+		if(life >=10) Destroy(gameObject);
 		Vector3 direction=(enemy.transform.position-fireC.transform.localPosition);
 		direction.Normalize();
 		Quaternion test=new Quaternion(0,0,0,0);
 		test.SetLookRotation(direction,fireC.transform.up);
 		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
 		fireC.transform.rotation = Quaternion.Lerp(fireC.transform.rotation,test, Time.deltaTime);
-		life+=Time.deltaTime;
-		if(life >=10) Destroy(gameObject);
+		
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){

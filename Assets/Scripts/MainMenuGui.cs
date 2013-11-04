@@ -1,21 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MainMenuGui : MonoBehaviour {
 
-	string gameName = "Player Name";
+	public string gameName = "Player Name";
 	string typeName = "RealityFlux0.1";
 	private HostData[] hostList;
 	private bool isRefreshingHostList = false;
 	
+	public static MainMenuGui MMG;
 	
 	bool hosting = false;
 	bool joined = false;
 	bool loaded = false;
 	
+	public class PlayerInfo
+	{
+		public NetworkPlayer networkPlayer;
+		public string name;
+		public GameObject avatar;
+	}
+
+	public Dictionary<NetworkPlayer,PlayerInfo> playerList = new Dictionary<NetworkPlayer,PlayerInfo>();
+	
 	void Awake(){
 		DontDestroyOnLoad(this);
-	
+		MMG = this;
 	}
 	
 	// Use this for initialization
@@ -55,7 +66,9 @@ public class MainMenuGui : MonoBehaviour {
 		
 		if(!hosting && !joined){
 			gameName = GUILayout.TextField(gameName);
+			PlayerPrefs.SetString("playerName", gameName);
 			if(GUILayout.Button("Host Game")){
+				PlayerPrefs.Save();
 				StartServer();
 				
 			}
@@ -67,6 +80,7 @@ public class MainMenuGui : MonoBehaviour {
                 for (int i = 0; i < hostList.Length; i++)
                 {
                     if (GUI.Button(new Rect(200, 25 + (35 * i), 200, 30), hostList[i].gameName)){
+						PlayerPrefs.Save();
 						JoinServer(hostList[i]);
 						joined = true;
 					}
@@ -124,6 +138,30 @@ public class MainMenuGui : MonoBehaviour {
 		}
 		Network.Disconnect(100);
 		MasterServer.UnregisterHost();
+	}
+	
+	[RPC]
+	void EditPlayer(NetworkPlayer networkPlayer, string pname){
+		PlayerInfo temp = new PlayerInfo();
+		temp.networkPlayer = networkPlayer;
+		temp.name = name;
+		temp.avatar = null;
+		playerList[networkPlayer] = temp;
+	}
+	
+	
+	void OnServerInitialized(){
+		networkView.RPC("EditPlayer", RPCMode.AllBuffered, Network.player, PlayerPrefs.GetString("playerName")); 
+	}
+	
+	void OnConnectedToServer(){
+		networkView.RPC("EditPlayer", RPCMode.AllBuffered, Network.player, PlayerPrefs.GetString("playerName"));
+	}
+	
+	[RPC]
+	void LoadLevel(string level){
+		Application.LoadLevel(level);
+		loaded = true;
 	}
 	
 }
