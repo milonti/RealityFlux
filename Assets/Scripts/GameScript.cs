@@ -21,6 +21,7 @@ public class GameScript : MonoBehaviour {
 	}
 	
 	void Start(){
+		Screen.lockCursor = true;
 		NetworkPlayer np1 = Network.player;
 		int loc = 1;
 		if(Network.peerType == NetworkPeerType.Server) loc = 2;
