@@ -75,8 +75,8 @@ public class CarpetControl : MonoBehaviour {
 	}
 	
 	[RPC]
-	void movePlayer (Vector3 moveDir, NetworkPlayer np) {
-		if(player == np )this.moveDir = moveDir * Time.deltaTime * speed;
+	void movePlayer (Vector3 md, NetworkPlayer np) {
+		if(player == np )this.moveDir = md * Time.deltaTime * speed;
 	}
 	
 	[RPC]
