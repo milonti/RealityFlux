@@ -24,6 +24,7 @@ public class GameScript : MonoBehaviour {
 		NetworkPlayer np1 = Network.player;
 		int loc = 1;
 		if(Network.peerType == NetworkPeerType.Server) loc = 2;
+		
 		CreatePlayer(np1, true, loc);
 		networkView.RPC("CreatePlayer", RPCMode.Others, np1, false, loc);
 		

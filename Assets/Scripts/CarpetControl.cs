@@ -28,7 +28,7 @@ public class CarpetControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		moveDir = Vector3.zero;
-		enemyPlaceholder = GameObject.Find("PlaceholderEnemy");
+		enemyPlaceholder = GameObject.Find("Otherplayer");
 		spells = new Spells();
 		if(!(Network.player.ToString() == player)){
 			GetComponentInChildren<AudioListener>().enabled = false;
