@@ -25,6 +25,11 @@ public class CarpetControl : MonoBehaviour {
 	public string player=null;
 	public int health = 90;
 	
+	public AudioClip fireballSound;
+	public AudioClip homingSound;
+	public AudioClip capsuleSound;
+	
+	
 	// Use this for initialization
 	void Start () {
 		moveDir = Vector3.zero;
@@ -72,16 +77,17 @@ public class CarpetControl : MonoBehaviour {
 			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation, player);
-			
+				audio.PlayOneShot(homingSound);
 			}
 			if(Input.GetButtonUp("Fire2")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation, player);
+				audio.PlayOneShot(fireballSound);
 			}
 			if(Input.GetButtonUp("Fire3")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
-			
+				audio.PlayOneShot(capsuleSound);
 			}
 		}
 		
@@ -137,6 +143,7 @@ public class CarpetControl : MonoBehaviour {
 		int i=1;
         
     }
+	
 	public void detract(int i){
 		WizardGUIScript.addHealth(-i);
 	}

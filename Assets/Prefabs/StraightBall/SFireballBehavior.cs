@@ -13,6 +13,8 @@ public class SFireballBehavior : MonoBehaviour {
 	public GameObject enemy;
 	public GameObject control;
 	
+	public AudioClip body_hit_sound;
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -46,6 +48,7 @@ public class SFireballBehavior : MonoBehaviour {
 		if(hit.collider.name.Equals("Hitbox")){
 				//insert hit something report here.
 				//Destroy(gameObject);
+				audio.PlayOneShot(body_hit_sound);
 			}
 		Destroy(gameObject);
 	}

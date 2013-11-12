@@ -13,6 +13,8 @@ public class FireballBehavior : MonoBehaviour {
 	public GameObject enemy;
 	public GameObject control;
 	
+	public AudioClip body_hit_sound;
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -43,6 +45,7 @@ public class FireballBehavior : MonoBehaviour {
 			
 				//insert hit something report here.
 				//Destroy(gameObject);
+				audio.PlayOneShot(body_hit_sound);
 			}
 		Destroy(gameObject);
 	}
