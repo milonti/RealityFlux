@@ -74,21 +74,37 @@ public class CarpetControl : MonoBehaviour {
 			}	
 			else WizardGUIScript.addMana(2f*Time.deltaTime);
 			//spells go here
-			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
+			 if (Input.GetAxis("Mouse ScrollWheel") < 0) {
+				WizardGUIScript.spellsUp();
+			}
+			if (Input.GetAxis("Mouse ScrollWheel") > 0) WizardGUIScript.spellsDown();
+			switch(WizardGUIScript.getSpellSet())
+			{
+			case '0':
+				if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation, player);
 				audio.PlayOneShot(homingSound);
 			}
-			if(Input.GetButtonUp("Fire2")&&WizardGUIScript.getMana()>2){
-				WizardGUIScript.addMana(-2);
+			break;
+			case'1':
+				if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>1){
+				WizardGUIScript.addMana(-1);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation, player);
 				audio.PlayOneShot(fireballSound);
-			}
-			if(Input.GetButtonUp("Fire3")&&WizardGUIScript.getMana()>2){
+			}	
+			break;
+			case'2':
+				if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
 				audio.PlayOneShot(capsuleSound);
+			}	
+			break;
 			}
+			
+			
+			
 		}
 		
 		
