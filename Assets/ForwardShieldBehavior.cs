@@ -12,6 +12,7 @@ public class ForwardShieldBehavior : MonoBehaviour {
 	public GameObject explosionParticles;
 	public GameObject enemy;
 	public GameObject control;
+	public int controlID;
 	
 	public AudioClip body_hit_sound;
 	
@@ -23,8 +24,10 @@ public class ForwardShieldBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//life+=Time.deltaTime;
+		
+		if(Input.GetButtonUp("Fire2"))Destroy(gameObject);
 		transform.position=control.transform.position+control.transform.forward*8;
-		transform.rotation=control.transform.rotation;
+		transform.rotation=control.camera.transform.rotation;
 		//shieldC.Move(transform.forward * speed * Time.deltaTime);
 		//Vector3 direction=(enemy.transform.position-shieldC.transform.localPosition);
 		//direction.Normalize();
@@ -42,7 +45,11 @@ public class ForwardShieldBehavior : MonoBehaviour {
 	public void setControl(GameObject e){
 		control=e;	
 	}
-	
+	[RPC]
+	public void die()
+	{
+		Destroy(gameObject);
+	}
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		//WizardGUIScript.addHealth(-5);
 		//GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
