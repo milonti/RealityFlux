@@ -9,7 +9,7 @@ public class WizardGUIScript : MonoBehaviour {
 	static float maxMana=100;
 	Color c=Color.red;
 	static int spellSet=0;
-	static int maxSpells=3;
+	static int maxSpells=2;
 	void start(){
 		//length=Screen.width/2;
 		//length=100;
@@ -22,18 +22,18 @@ public class WizardGUIScript : MonoBehaviour {
 		GUI.Box(new Rect(Screen.width/2-5,Screen.height/2-5, 10, 10), "");
 		switch(spellSet)
 		{
-		case'0':
+		case 0:
 			GUI.color=Color.white;
 			GUI.backgroundColor=Color.white;
 			GUI.Box(new Rect(Screen.width/2-80,Screen.height-80,160,80), "0","button");	
 		break;
 			
-		case'1':
+		case 1:
 			GUI.color=Color.red;
 			GUI.backgroundColor=Color.red;
 			GUI.Box(new Rect(Screen.width/2-80,Screen.height-80,160,80), "1","button");
 		break;
-		case'2':
+		case 2:
 			GUI.color=Color.blue;
 			GUI.backgroundColor=Color.blue;
 			GUI.Box(new Rect(Screen.width/2-80,Screen.height-80,160,80), "2","button");	

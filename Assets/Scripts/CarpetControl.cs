@@ -80,21 +80,26 @@ public class CarpetControl : MonoBehaviour {
 			if (Input.GetAxis("Mouse ScrollWheel") > 0) WizardGUIScript.spellsDown();
 			switch(WizardGUIScript.getSpellSet())
 			{
-			case '0':
-				if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
+			case 0:
+			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation, player);
 				audio.PlayOneShot(homingSound);
 			}
 			break;
-			case'1':
-				if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>1){
+			case 1:
+			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>1){
 				WizardGUIScript.addMana(-1);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation, player);
 				audio.PlayOneShot(fireballSound);
-			}	
+			}
+			if(Input.GetButtonUp("Fire2")&&WizardGUIScript.getMana()>2){
+				WizardGUIScript.addMana(0);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "shield", look.transform.position, look.transform.forward, look.transform.rotation, player);
+				//audio.PlayOneShot(homingSound);
+			}
 			break;
-			case'2':
+			case 2:
 				if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
@@ -147,6 +152,11 @@ public class CarpetControl : MonoBehaviour {
 			fb = (GameObject)Instantiate(spells.bouncer, pos + forw * 8, rot);
 			fb.GetComponent<BounceBehavior>().setEnemy(target);
 			fb.GetComponent<BounceBehavior>().setControl(gameObject);
+			break;
+		case "shield":
+			fb = (GameObject)Instantiate(spells.forwardShield, pos + forw * 8, rot);
+			fb.GetComponent<ForwardShieldBehavior>().setEnemy(target);
+			fb.GetComponent<ForwardShieldBehavior>().setControl(gameObject);
 			break;
 		}
 	}
