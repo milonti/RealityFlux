@@ -76,6 +76,7 @@ public class BounceBehavior : MonoBehaviour {
 	public void shittyCollisionDetection(int lose){
 		if(Vector3.Distance(bounceC.transform.position,control.transform.position)<5&&life>5){
 			Debug.Log("hit something");
+			control.audio.PlayOneShot(body_hit_sound);
 			control.GetComponent<CarpetControl>().detract(lose);
 			Destroy(gameObject);
 			

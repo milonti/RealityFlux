@@ -14,6 +14,7 @@ public class FireballBehavior : MonoBehaviour {
 	public GameObject control;
 	
 	public AudioClip body_hit_sound;
+	public AudioClip impact_sound;
 	
 	// Use this for initialization
 	void Start () {
@@ -38,14 +39,13 @@ public class FireballBehavior : MonoBehaviour {
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
+		audio.PlayOneShot(impact_sound);
 		//Debug.Log(hit.controller.name);
 		//Debug.Log(hit);
 		
 		if(hit.collider.name.Equals("Hitbox")){
-			
 				//insert hit something report here.
 				//Destroy(gameObject);
-				audio.PlayOneShot(body_hit_sound);
 			}
 		Destroy(gameObject);
 	}
@@ -58,6 +58,7 @@ public class FireballBehavior : MonoBehaviour {
 	public void shittyCollisionDetection(int lose){
 		if(Vector3.Distance(fireC.transform.position,control.transform.position)<3){
 			Debug.Log("hit something");
+			control.audio.PlayOneShot(body_hit_sound);
 			control.GetComponent<CarpetControl>().detract(lose);
 			Destroy(gameObject);
 			
