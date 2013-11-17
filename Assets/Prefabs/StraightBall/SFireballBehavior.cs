@@ -14,11 +14,9 @@ public class SFireballBehavior : MonoBehaviour {
 	public GameObject control;
 	
 	public AudioClip body_hit_sound;
-	public AudioClip impact_sound;
 	
 	// Use this for initialization
-	void Start () {
-		
+	void Start () {	
 	}
 	
 	// Update is called once per frame
@@ -45,9 +43,7 @@ public class SFireballBehavior : MonoBehaviour {
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		//WizardGUIScript.addHealth(-5);
-		audio.PlayOneShot(impact_sound);
 		GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
-		fireC.audio.PlayOneShot(impact_sound);
 		if(hit.collider.name.Equals("Hitbox")){
 				//insert hit something report here.
 				//Destroy(gameObject);

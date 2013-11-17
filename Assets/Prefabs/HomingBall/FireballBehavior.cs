@@ -14,11 +14,9 @@ public class FireballBehavior : MonoBehaviour {
 	public GameObject control;
 	
 	public AudioClip body_hit_sound;
-	public AudioClip impact_sound;
 	
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
@@ -38,7 +36,6 @@ public class FireballBehavior : MonoBehaviour {
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
-		audio.PlayOneShot(impact_sound);
 		GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
 		
 		//Debug.Log(hit.controller.name);
