@@ -6,6 +6,9 @@ MonoImporter:
   - fireC: {instanceID: 0}
   - explosionParticles: {fileID: 100004, guid: 33e2b3112e33c9b4a970b9b232697f06, type: 2}
   - enemy: {instanceID: 0}
+  - control: {instanceID: 0}
+  - body_hit_sound: {fileID: 8300000, guid: 753be84e5a8778d41b605736f9b58d9c, type: 3}
+  - impact_sound: {fileID: 8300000, guid: 6d9d668319db941479fa64f1bf1aaab5, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

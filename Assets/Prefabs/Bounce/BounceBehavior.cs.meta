@@ -2,7 +2,12 @@ fileFormatVersion: 2
 guid: 17466d47540c91741881eda6573bd481
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bounceC: {instanceID: 0}
+  - explosionParticles: {instanceID: 0}
+  - enemy: {instanceID: 0}
+  - control: {instanceID: 0}
+  - body_hit_sound: {fileID: 8300000, guid: 753be84e5a8778d41b605736f9b58d9c, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

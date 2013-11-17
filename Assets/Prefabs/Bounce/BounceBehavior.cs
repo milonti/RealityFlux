@@ -14,6 +14,9 @@ public class BounceBehavior : MonoBehaviour {
 	public GameObject enemy;
 	public Vector3 oldEnemyPosition;
 	public GameObject control;
+	
+	public AudioClip body_hit_sound;
+	
 	// Use this for initialization
 	void Start () {
 		
