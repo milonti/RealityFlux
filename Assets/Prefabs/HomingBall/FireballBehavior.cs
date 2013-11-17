@@ -39,7 +39,7 @@ public class FireballBehavior : MonoBehaviour {
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
-		audio.PlayOneShot(impact_sound);
+		
 		//Debug.Log(hit.controller.name);
 		//Debug.Log(hit);
 		
@@ -56,6 +56,7 @@ public class FireballBehavior : MonoBehaviour {
 		control=e;	
 	}
 	public void shittyCollisionDetection(int lose){
+		audio.PlayOneShot(impact_sound);
 		if(Vector3.Distance(fireC.transform.position,control.transform.position)<3){
 			Debug.Log("hit something");
 			control.audio.PlayOneShot(body_hit_sound);
