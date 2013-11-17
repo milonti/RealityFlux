@@ -84,14 +84,14 @@ public class CarpetControl : MonoBehaviour {
 			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation, player);
-				audio.PlayOneShot(homingSound);
+				
 			}
 			break;
 			case 1:
 			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>1){
 				WizardGUIScript.addMana(-1);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation, player);
-				audio.PlayOneShot(fireballSound);
+				
 			}
 			if(Input.GetButtonDown("Fire2")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(0);
@@ -103,7 +103,7 @@ public class CarpetControl : MonoBehaviour {
 				if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
-				audio.PlayOneShot(capsuleSound);
+				
 			}	
 			break;
 			}
@@ -132,26 +132,35 @@ public class CarpetControl : MonoBehaviour {
 	void castSpell(string sName, Vector3 pos, Vector3 forw, Quaternion rot, string shot){
 		GameObject fb = null;
 		GameObject target=null;
+		GameObject soundSrc = null;
 		if(!shot.Equals(player)){
 			target = gameObject;
+			soundSrc = enemy;
 		}
-		else target = enemy;
+		else{
+			target = enemy;
+			soundSrc = gameObject;
+		}
+		
 		
 		switch(sName){
 		case "homing": 
 			fb = (GameObject)Instantiate(spells.homing, pos + forw * 5, rot);
 			fb.GetComponent<FireballBehavior>().setEnemy(target);
 			fb.GetComponent<FireballBehavior>().setControl(gameObject);
+			soundSrc.audio.PlayOneShot(homingSound);
 			break;
 		case "fireball":
 			fb = (GameObject)Instantiate(spells.fireball, pos + forw * 5, rot);
 			fb.GetComponent<SFireballBehavior>().setEnemy(target);
 			fb.GetComponent<SFireballBehavior>().setControl(gameObject);
+			soundSrc.audio.PlayOneShot(fireballSound);
 			break;
 		case "bouncer":
 			fb = (GameObject)Instantiate(spells.bouncer, pos + forw * 8, rot);
 			fb.GetComponent<BounceBehavior>().setEnemy(target);
 			fb.GetComponent<BounceBehavior>().setControl(gameObject);
+			soundSrc.audio.PlayOneShot(capsuleSound);
 			break;
 		case "shield":
 			fb = (GameObject)Instantiate(spells.forwardShield, pos + forw * 8, rot);
