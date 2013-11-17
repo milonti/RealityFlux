@@ -45,6 +45,7 @@ public class SFireballBehavior : MonoBehaviour {
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		//WizardGUIScript.addHealth(-5);
+		audio.PlayOneShot(impact_sound);
 		GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
 		fireC.audio.PlayOneShot(impact_sound);
 		if(hit.collider.name.Equals("Hitbox")){
@@ -54,7 +55,6 @@ public class SFireballBehavior : MonoBehaviour {
 		Destroy(gameObject);
 	}
 	public void shittyCollisionDetection(int lose){
-		audio.PlayOneShot(impact_sound);
 		if(Vector3.Distance(fireC.transform.position,control.transform.position)<3){
 			Debug.Log("hit something");
 			control.audio.PlayOneShot(body_hit_sound);
