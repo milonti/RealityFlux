@@ -66,23 +66,23 @@ public class MainMenuGui : MonoBehaviour {
 		
 		if(!hosting && !joined){
 			//gameName = GUILayout.TextField(gameName);
-			gameName = GUI.TextField(new Rect(600, 275, 550, 100), gameName, customTextField);
+			gameName = GUI.TextField(new Rect(200, 175, 550, 100), gameName, customTextField);
 			PlayerPrefs.SetString("playerName", gameName);
 			//if(GUILayout.Button("Host Game")){
-			if(GUI.Button(new Rect(620, 385, 500, 80), "Host Game", customButton)){
+			if(GUI.Button(new Rect(220, 285, 500, 80), "Host Game", customButton)){
 				PlayerPrefs.Save();
 				StartServer();
 				
 			}
 			//if(GUILayout.Button("Search for games")){
-			if(GUI.Button(new Rect(620, 465, 500, 80), "Search for games", customButton)){
+			if(GUI.Button(new Rect(220, 365, 500, 80), "Search for games", customButton)){
 				RefreshHostList();
 			}
 			if (hostList != null)
             {
                 for (int i = 0; i < hostList.Length; i++)
                 {
-                    if (GUI.Button(new Rect(775, 555 + (35 * i), 200, 30), hostList[i].gameName)){
+                    if (GUI.Button(new Rect(375, 455 + (35 * i), 200, 30), hostList[i].gameName)){
 						PlayerPrefs.Save();
 						JoinServer(hostList[i]);
 						joined = true;
@@ -94,14 +94,14 @@ public class MainMenuGui : MonoBehaviour {
 		if(hosting){
 			
 			//if(GUILayout.Button("Stop Hosting Server")){
-			if(GUI.Button(new Rect(620, 385, 500, 80), "Stop Hosting Server", customButton)){
+			if(GUI.Button(new Rect(220, 285, 500, 80), "Stop Hosting Server", customButton)){
 				StopServer();
 				hosting = false;
 			}
 			if(Network.connections.Length > 0){
 				GUILayout.Label("Player Found!");
 				//if(GUILayout.Button("Start Game")){
-				if(GUI.Button(new Rect(620, 465, 500, 80), "Start Game", customButton)){
+				if(GUI.Button(new Rect(220, 365, 500, 80), "Start Game", customButton)){
 					//assign players 1 and 2
 					
 					//Start Game
@@ -115,7 +115,7 @@ public class MainMenuGui : MonoBehaviour {
 		if(joined){
 			GUILayout.Label("Waiting for host to start game...");
 			//if(GUILayout.Button("Disconnect")){
-			if(GUI.Button(new Rect(620, 465, 500, 80), "Disconnect", customButton)){
+			if(GUI.Button(new Rect(220, 365, 500, 80), "Disconnect", customButton)){
 				Network.Disconnect(100);
 				joined = false;
 			}
