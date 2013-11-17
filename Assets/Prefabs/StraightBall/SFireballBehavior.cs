@@ -48,7 +48,7 @@ public class SFireballBehavior : MonoBehaviour {
 		if(hit.collider.name.Equals("Hitbox")){
 				//insert hit something report here.
 				//Destroy(gameObject);
-				audio.PlayOneShot(body_hit_sound);
+				
 			}
 		Destroy(gameObject);
 	}
@@ -56,6 +56,7 @@ public class SFireballBehavior : MonoBehaviour {
 		if(Vector3.Distance(fireC.transform.position,control.transform.position)<3){
 			Debug.Log("hit something");
 			control.GetComponent<CarpetControl>().detract(lose);
+			control.audio.PlayOneShot(body_hit_sound);
 			Destroy(gameObject);
 			
 		}

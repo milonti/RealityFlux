@@ -84,26 +84,22 @@ public class CarpetControl : MonoBehaviour {
 			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation, player);
-				
 			}
 			break;
 			case 1:
 			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>1){
 				WizardGUIScript.addMana(-1);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation, player);
-				
 			}
 			if(Input.GetButtonDown("Fire2")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(0);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "shield", look.transform.position, look.transform.forward, look.transform.rotation, player);
-				//audio.PlayOneShot(homingSound);
 			}
 			break;
 			case 2:
 				if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
-				
 			}	
 			break;
 			}
