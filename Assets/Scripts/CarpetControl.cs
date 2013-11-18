@@ -6,6 +6,7 @@ public class CarpetControl : MonoBehaviour {
 	public CharacterController playC;
 	public float speed;
 	public GameObject enemy;
+	GameObject fb;
 	
 	public Vector3 moveDir;
 
@@ -37,10 +38,10 @@ public class CarpetControl : MonoBehaviour {
 		WizardGUIScript.setHealth(100);
 		enemy = GameObject.Find("OtherPlayer");
 		spells = new Spells();
-		if(!(Network.player.ToString() == player)){
-			GetComponentInChildren<AudioListener>().enabled = false;
-			GetComponentInChildren<Camera>().enabled = false;
-		}
+		enemy.GetComponent<AudioListener>().enabled = false;
+		
+		//enemy.GetComponentInChildren<Camera>().enabled = false;
+		
 		
 	}
 	
@@ -101,6 +102,10 @@ public class CarpetControl : MonoBehaviour {
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			}	
+			if(Input.GetButtonDown("Fire2")&&WizardGUIScript.getMana()>2){
+				WizardGUIScript.addMana(0);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "wall", look.transform.position, look.transform.forward, look.transform.rotation, player);
+			}
 			break;
 			}
 			
@@ -126,7 +131,7 @@ public class CarpetControl : MonoBehaviour {
 	
 	[RPC]
 	void castSpell(string sName, Vector3 pos, Vector3 forw, Quaternion rot, string shot){
-		GameObject fb = null;
+		
 		GameObject target=null;
 		GameObject soundSrc = null;
 		if(!shot.Equals(player)){
@@ -142,6 +147,7 @@ public class CarpetControl : MonoBehaviour {
 		switch(sName){
 		case "homing": 
 			fb = (GameObject)Instantiate(spells.homing, pos + forw * 5, rot);
+			//fb = (GameObject)Instantiate(spells.homing, pos + forw * 5, rot);
 			fb.GetComponent<FireballBehavior>().setEnemy(target);
 			fb.GetComponent<FireballBehavior>().setControl(gameObject);
 			soundSrc.audio.PlayOneShot(homingSound);
@@ -161,10 +167,16 @@ public class CarpetControl : MonoBehaviour {
 		case "shield":
 			fb = (GameObject)Instantiate(spells.forwardShield, pos + forw * 8, rot);
 			fb.GetComponent<ForwardShieldBehavior>().setEnemy(target);
-			fb.GetComponent<ForwardShieldBehavior>().setControl(gameObject);
+			fb.GetComponent<ForwardShieldBehavior>().setControl(look.gameObject);
+			break;
+		case "wall":
+			fb = (GameObject)Instantiate(spells.wall, pos + forw * 8, rot);
+			fb.GetComponent<WallBehavior>().setEnemy(target);
+			fb.GetComponent<WallBehavior>().setControl(gameObject);
 			break;
 		}
 	}
+	
 	void OnCollisionEnter(Collision collision) {
 		Debug.Log("test");
         Debug.Log(collision.collider.name);
