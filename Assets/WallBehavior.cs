@@ -15,8 +15,11 @@ public class WallBehavior : MonoBehaviour {
 	
 	public AudioClip body_hit_sound;
 	
+	bool color1 = false;
+	
 	// Use this for initialization
 	void Start () {
+		color1 = false;
 	}
 	
 	// Update is called once per frame
@@ -27,13 +30,10 @@ public class WallBehavior : MonoBehaviour {
 		//wallC.transform.localScale=wallC.transform.localScale*1.5f*Time.deltaTime;
 		if(life >=10) Destroy(gameObject);
 		//Vector3 direction=(enemy.transform.position-wallC.transform.localPosition);
-		//direction.Normalize();
-		//Quaternion test=new Quaternion(0,0,0,0);
-		//test.SetLookRotation(direction,wallC.transform.up);
-		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
-		//wallC.transform.rotation = Quaternion.Lerp(wallC.transform.rotation,test, Time.deltaTime*2);
-		//shittyCollisionDetection(4);
-		
+		if(collisions>10){
+				//insert hit something report here.
+				Destroy(gameObject);
+		}
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
@@ -43,17 +43,28 @@ public class WallBehavior : MonoBehaviour {
 		Debug.Log(hit.collider.tag);
 		Debug.Log (hit.collider.name);
 		
-		if(collisions>10){
-				//insert hit something report here.
-				Destroy(gameObject);
-			}
+		
 		//Destroy(gameObject);
 	}
+	
 	public void setEnemy(GameObject e){
 		enemy=e;	
 	}
+	
 	public void setControl(GameObject e){
 		control=e;	
+	}
+	
+	public void OnCollisionEnter(Collision c){
+		Debug.Log("Wall got hit");
+		if(c.collider.tag.Equals("Spell")) collisions++;
+		if(color1) {
+			gameObject.renderer.material.color = Color.cyan;
+		}
+		else{
+			gameObject.renderer.material.color = Color.blue;
+		}
+		color1 = (!color1);
 	}
 	
 }
