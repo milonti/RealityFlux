@@ -2,7 +2,14 @@ fileFormatVersion: 2
 guid: fe08a7d5664dc2040be5e26cf40dbadf
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playC: {instanceID: 0}
+  - enemy: {instanceID: 0}
+  - look: {instanceID: 0}
+  - fireballSound: {fileID: 8300000, guid: 79459383fd52e4d4199069bb2f6640b2, type: 3}
+  - homingSound: {fileID: 8300000, guid: 3dfce467e4b4810449eb6440cadc30f8, type: 3}
+  - capsuleSound: {fileID: 8300000, guid: 77281c695c4b4594197df1d25c8be172, type: 3}
+  - shieldSound: {fileID: 8300000, guid: 153a4a42846474b40b1b328dd746bbf2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

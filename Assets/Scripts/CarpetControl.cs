@@ -30,6 +30,7 @@ public class CarpetControl : MonoBehaviour {
 	public AudioClip fireballSound;
 	public AudioClip homingSound;
 	public AudioClip capsuleSound;
+	public AudioClip shieldSound;
 	
 	
 	// Use this for initialization
@@ -174,6 +175,7 @@ public class CarpetControl : MonoBehaviour {
 			soundSrc.audio.PlayOneShot(capsuleSound);
 			break;
 		case "shield":
+			soundSrc.audio.PlayOneShot(shieldSound);
 			fb = (GameObject)Instantiate(spells.forwardShield, pos + forw * 8, rot);
 			fb.GetComponent<ForwardShieldBehavior>().setEnemy(target);
 			fb.GetComponent<ForwardShieldBehavior>().setControl(controller);
