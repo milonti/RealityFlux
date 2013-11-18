@@ -6,6 +6,7 @@ public class MainMenuGui : MonoBehaviour {
 
 	public string gameName = "Player Name";
 	string typeName = "RealityFlux0.1";
+	public string instructionText;
 	private HostData[] hostList;
 	private bool isRefreshingHostList = false;
 	
@@ -17,6 +18,7 @@ public class MainMenuGui : MonoBehaviour {
 	
 	public GUIStyle customTextField;
 	public GUIStyle customButton;
+	public GUIStyle customInstructions;
 	
 	public class PlayerInfo
 	{
@@ -64,6 +66,9 @@ public class MainMenuGui : MonoBehaviour {
 		//GUILayout.Label("Reality Flux");
 		
 		
+		//GUI.Button (new Rect(Screen.width/30, Screen.height/10, 250, 250), instructionText, customInstructions);
+		GUI.Button (new Rect(Screen.width/2 - 175, 3*Screen.height/4 - 125, 350, 250), instructionText, customInstructions);
+			
 		if(!hosting && !joined){
 			//gameName = GUILayout.TextField(gameName);
 			gameName = GUI.TextField(new Rect(Screen.width/2 - 275, Screen.height/3 - 50, 550, 100), gameName, customTextField);
