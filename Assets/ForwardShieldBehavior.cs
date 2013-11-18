@@ -27,10 +27,6 @@ public class ForwardShieldBehavior : MonoBehaviour {
 		//life+=Time.deltaTime;
 		
 		if(Input.GetButtonUp("Fire2")) networkView.RPC("die", RPCMode.All, controlID);
-		
-		transform.position=control.transform.position+control.transform.forward*8;
-		transform.rotation=control.camera.transform.rotation;
-
 		life += Time.deltaTime;
 		if(life >=3) Destroy(gameObject);
 	}
@@ -47,6 +43,14 @@ public class ForwardShieldBehavior : MonoBehaviour {
 	public void die(string player)
 	{
 		if(player.Equals(controlID)) Destroy(gameObject);
+	}
+	
+	[RPC]
+	public void setPosRot(Vector3 pos, Quaternion rot, string player){
+		if(controlID.Equals(player)){
+			transform.position = pos;
+			transform.rotation = rot;
+		}
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
