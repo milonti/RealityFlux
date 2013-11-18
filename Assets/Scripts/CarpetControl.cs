@@ -41,7 +41,7 @@ public class CarpetControl : MonoBehaviour {
 		enemy = GameObject.Find("OtherPlayer");
 		spells = new Spells();
 		
-		wallCount=0;
+		wallCount=10;
 		
 	}
 	
@@ -106,7 +106,7 @@ public class CarpetControl : MonoBehaviour {
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			}	
-			if(Input.GetButtonDown("Fire2")&&WizardGUIScript.getMana()>2&&wallCount>10){
+			if(Input.GetButtonDown("Fire2")&&WizardGUIScript.getMana()>2&&wallCount>5){
 				WizardGUIScript.addMana(0);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "wall", look.transform.position, look.transform.forward, look.transform.rotation, player);
 				wallCount=0;
