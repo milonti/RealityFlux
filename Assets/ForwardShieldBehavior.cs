@@ -26,7 +26,7 @@ public class ForwardShieldBehavior : MonoBehaviour {
 	void Update () {
 		//life+=Time.deltaTime;
 		
-		if(Input.GetButtonUp("Fire2")) networkView.RPC("die", RPCMode.All, controlID);
+		
 		life += Time.deltaTime;
 		if(life >=3) Destroy(gameObject);
 	}

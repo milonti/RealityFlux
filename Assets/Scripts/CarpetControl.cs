@@ -78,6 +78,7 @@ public class CarpetControl : MonoBehaviour {
 				WizardGUIScript.spellsUp();
 			}
 			if (Input.GetAxis("Mouse ScrollWheel") > 0) WizardGUIScript.spellsDown();
+			
 			switch(WizardGUIScript.getSpellSet())
 			{
 			case 0:
@@ -111,7 +112,7 @@ public class CarpetControl : MonoBehaviour {
 			break;
 			}
 			
-			
+			if(Input.GetButtonUp("Fire2")) networkView.RPC("endShield", RPCMode.All, player);
 			
 		}
 		
@@ -210,5 +211,13 @@ public class CarpetControl : MonoBehaviour {
 		}
 	}
 	
+	[RPC]
+	public void endShield(string play){
+		Object[] f = FindObjectsOfType(typeof(ForwardShieldBehavior));
+		foreach(Object o in f){
+			ForwardShieldBehavior d = (ForwardShieldBehavior) o;
+			d.die(play);
+		}
+	}
 	
 }
