@@ -36,8 +36,8 @@ public class ForwardShieldBehavior : MonoBehaviour {
 		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
 		//shieldC.transform.rotation = Quaternion.Lerp(shieldC.transform.rotation,test, Time.deltaTime);
 		//shittyCollisionDetection(15);
-		//life+=Time.deltaTime;
-		//if(life >=3) Destroy(gameObject);
+		life+=Time.deltaTime;
+		if(life >=3) Destroy(gameObject);
 	}
 	public void setEnemy(GameObject e){
 		enemy=e;	
