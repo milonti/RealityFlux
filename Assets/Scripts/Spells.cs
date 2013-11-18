@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Spells : MonoBehaviour{
+public class Spells : MonoBehaviour {
 	
 	public GameObject homing = (GameObject) Resources.Load("Fireball");
 	public GameObject fireball = (GameObject) Resources.Load("StraightFireball");
