@@ -38,9 +38,7 @@ public class CarpetControl : MonoBehaviour {
 		WizardGUIScript.setHealth(100);
 		enemy = GameObject.Find("OtherPlayer");
 		spells = new Spells();
-		enemy.GetComponent<AudioListener>().enabled = false;
 		
-		//enemy.GetComponentInChildren<Camera>().enabled = false;
 		
 		
 	}
@@ -143,6 +141,7 @@ public class CarpetControl : MonoBehaviour {
 			soundSrc = gameObject;
 		}
 		
+		soundSrc = target;
 		
 		switch(sName){
 		case "homing": 
@@ -168,6 +167,7 @@ public class CarpetControl : MonoBehaviour {
 			fb = (GameObject)Instantiate(spells.forwardShield, pos + forw * 8, rot);
 			fb.GetComponent<ForwardShieldBehavior>().setEnemy(target);
 			fb.GetComponent<ForwardShieldBehavior>().setControl(look.gameObject);
+			fb.GetComponent<ForwardShieldBehavior>().controlID = player;
 			break;
 		case "wall":
 			fb = (GameObject)Instantiate(spells.wall, pos + forw * 8, rot);
