@@ -36,11 +36,10 @@ public class CarpetControl : MonoBehaviour {
 		WizardGUIScript.setMana(50);
 		WizardGUIScript.setHealth(100);
 		enemy = GameObject.Find("OtherPlayer");
+		enemy.GetComponentInChildren<Camera>().enabled = false;
+		
+		//enemy.GetComponentInChildren<Camera>().enabled = false;
 		spells = new Spells();
-		if(!(Network.player.ToString() == player)){
-			GetComponentInChildren<AudioListener>().enabled = false;
-			GetComponentInChildren<Camera>().enabled = false;
-		}
 		
 	}
 	
