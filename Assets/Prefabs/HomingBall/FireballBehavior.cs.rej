@@ -1,9 +1,0 @@
-diff a/Assets/Prefabs/HomingBall/FireballBehavior.cs b/Assets/Prefabs/HomingBall/FireballBehavior.cs	(rejected hunks)
-@@ -14,6 +14,7 @@
- 	public GameObject control;
- 	
- 	public AudioClip body_hit_sound;
-+	public AudioClip impact_sound;
- 	
- 	// Use this for initialization
- 	void Start () {

@@ -36,10 +36,11 @@ public class CarpetControl : MonoBehaviour {
 		WizardGUIScript.setMana(50);
 		WizardGUIScript.setHealth(100);
 		enemy = GameObject.Find("OtherPlayer");
-		enemy.GetComponentInChildren<Camera>().enabled = false;
-		
-		//enemy.GetComponentInChildren<Camera>().enabled = false;
 		spells = new Spells();
+		if(!(Network.player.ToString() == player)){
+			GetComponentInChildren<AudioListener>().enabled = false;
+			GetComponentInChildren<Camera>().enabled = false;
+		}
 		
 	}
 	
@@ -100,10 +101,6 @@ public class CarpetControl : MonoBehaviour {
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			}	
-			if(Input.GetButtonDown("Fire2")&&WizardGUIScript.getMana()>2){
-				WizardGUIScript.addMana(0);
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "wall", look.transform.position, look.transform.forward, look.transform.rotation, player);
-			}
 			break;
 			}
 			
@@ -164,12 +161,7 @@ public class CarpetControl : MonoBehaviour {
 		case "shield":
 			fb = (GameObject)Instantiate(spells.forwardShield, pos + forw * 8, rot);
 			fb.GetComponent<ForwardShieldBehavior>().setEnemy(target);
-			fb.GetComponent<ForwardShieldBehavior>().setControl(look.gameObject);
-			break;
-		case "wall":
-			fb = (GameObject)Instantiate(spells.wall, pos + forw * 8, rot);
-			fb.GetComponent<WallBehavior>().setEnemy(target);
-			fb.GetComponent<WallBehavior>().setControl(gameObject);
+			fb.GetComponent<ForwardShieldBehavior>().setControl(gameObject);
 			break;
 		}
 	}
