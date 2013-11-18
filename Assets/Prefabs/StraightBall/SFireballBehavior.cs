@@ -30,7 +30,7 @@ public class SFireballBehavior : MonoBehaviour {
 		//test.SetLookRotation(direction,fireC.transform.up);
 		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
 		//fireC.transform.rotation = Quaternion.Lerp(fireC.transform.rotation,test, Time.deltaTime);
-		shittyCollisionDetection(15);
+		shittyCollisionDetection(5);
 		life+=Time.deltaTime;
 		if(life >=3) Destroy(gameObject);
 	}

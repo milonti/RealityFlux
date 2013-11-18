@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BounceBehavior : MonoBehaviour {
 	
-	public float speed = 300;
+	public float speed = 500;
 	
 	public CharacterController bounceC;
 	double counter=0;
@@ -28,6 +28,7 @@ public class BounceBehavior : MonoBehaviour {
 		if(hitGround){
 			counter+=Time.deltaTime;
 			Vector3 direction=(oldEnemyPosition-bounceC.transform.localPosition);
+			if(direction<0.5f)hitGround=false;
 			direction.Normalize();
 			Quaternion test=new Quaternion(0,0,0,0);
 			test.SetLookRotation(direction,bounceC.transform.up);
