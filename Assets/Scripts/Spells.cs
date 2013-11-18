@@ -7,6 +7,7 @@ public class Spells : MonoBehaviour {
 	public GameObject fireball = (GameObject) Resources.Load("StraightFireball");
 	public GameObject bouncer = (GameObject) Resources.Load("Bouncer");
 	public GameObject forwardShield = (GameObject) Resources.Load("ForwardShield");
+	public GameObject wall = (GameObject) Resources.Load("Wall");
 	
 	// Use this for initialization
 	void Start () {
