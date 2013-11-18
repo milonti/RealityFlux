@@ -143,6 +143,7 @@ public class CarpetControl : MonoBehaviour {
 			soundSrc = gameObject;
 		}
 		
+		soundSrc = target;
 		
 		switch(sName){
 		case "homing": 
