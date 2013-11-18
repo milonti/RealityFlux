@@ -94,7 +94,7 @@ public class CarpetControl : MonoBehaviour {
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			}
 			if(Input.GetButtonDown("Fire2") && WizardGUIScript.getMana() > 2){
-				WizardGUIScript.addMana(0);
+				WizardGUIScript.addMana(-3);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "shield", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			}
 			if(Input.GetButton("Fire2") && WizardGUIScript.getMana() > 2){
