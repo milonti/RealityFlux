@@ -27,7 +27,7 @@ public class WallBehavior : MonoBehaviour {
 		//life+=Time.deltaTime;
 		wallC.Move(transform.forward * speed * Time.deltaTime);
 		life+=Time.deltaTime;
-		//wallC.transform.localScale=wallC.transform.localScale*1.5f*Time.deltaTime;
+		
 		if(life >=5) Destroy(gameObject);
 		//Vector3 direction=(enemy.transform.position-wallC.transform.localPosition);
 		if(collisions>10){
