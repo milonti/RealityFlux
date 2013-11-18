@@ -36,11 +36,10 @@ public class CarpetControl : MonoBehaviour {
 		WizardGUIScript.setMana(50);
 		WizardGUIScript.setHealth(100);
 		enemy = GameObject.Find("OtherPlayer");
+		enemy.GetComponentInChildren<Camera>().enabled = false;
+		
+		//enemy.GetComponentInChildren<Camera>().enabled = false;
 		spells = new Spells();
-		if(!(Network.player.ToString() == player)){
-			GetComponentInChildren<AudioListener>().enabled = false;
-			GetComponentInChildren<Camera>().enabled = false;
-		}
 		
 	}
 	
@@ -165,7 +164,7 @@ public class CarpetControl : MonoBehaviour {
 		case "shield":
 			fb = (GameObject)Instantiate(spells.forwardShield, pos + forw * 8, rot);
 			fb.GetComponent<ForwardShieldBehavior>().setEnemy(target);
-			fb.GetComponent<ForwardShieldBehavior>().setControl(gameObject);
+			fb.GetComponent<ForwardShieldBehavior>().setControl(look.gameObject);
 			break;
 		case "wall":
 			fb = (GameObject)Instantiate(spells.wall, pos + forw * 8, rot);
