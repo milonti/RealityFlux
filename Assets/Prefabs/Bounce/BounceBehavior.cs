@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BounceBehavior : MonoBehaviour {
 	
-	public float speed = 120;
+	public float speed = 300;
 	
 	public CharacterController bounceC;
 	double counter=0;
@@ -33,10 +33,11 @@ public class BounceBehavior : MonoBehaviour {
 			test.SetLookRotation(direction,bounceC.transform.up);
 			bounceC.transform.rotation=test;
 			bounceC.Move(transform.forward * speed * Time.deltaTime);
-			if(counter>=2)hitGround=false;
+			//if(counter>=2)hitGround=false;
+			if(enemy.transform.localPosition.y+10<bounceC.transform.localPosition.y)hitGround=false;
 			
 		}
-		else bounceC.Move(new Vector3(0,-1,0)*Time.deltaTime*speed);
+		else bounceC.Move(new Vector3(0,-1,0)*Time.deltaTime*speed/2f);
 		/*
 		bounceC.Move(transform.forward * speed * Time.deltaTime);
 		Vector3 direction=(enemy.transform.position-bounceC.transform.localPosition);
