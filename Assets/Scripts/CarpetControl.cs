@@ -132,13 +132,18 @@ public class CarpetControl : MonoBehaviour {
 		
 		GameObject target=null;
 		GameObject soundSrc = null;
+		GameObject controller = null;
+		
+		
 		if(!shot.Equals(player)){
 			target = gameObject;
 			soundSrc = enemy;
+			controller = enemy;
 		}
 		else{
 			target = enemy;
 			soundSrc = gameObject;
+			controller = gameObject;
 		}
 		
 		soundSrc = target;
@@ -166,7 +171,7 @@ public class CarpetControl : MonoBehaviour {
 		case "shield":
 			fb = (GameObject)Instantiate(spells.forwardShield, pos + forw * 8, rot);
 			fb.GetComponent<ForwardShieldBehavior>().setEnemy(target);
-			fb.GetComponent<ForwardShieldBehavior>().setControl(look.gameObject);
+			fb.GetComponent<ForwardShieldBehavior>().setControl(controller);
 			fb.GetComponent<ForwardShieldBehavior>().controlID = player;
 			break;
 		case "wall":
