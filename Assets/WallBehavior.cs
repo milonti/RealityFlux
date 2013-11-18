@@ -55,14 +55,5 @@ public class WallBehavior : MonoBehaviour {
 	public void setControl(GameObject e){
 		control=e;	
 	}
-	public void shittyCollisionDetection(int lose){
-		if(Vector3.Distance(wallC.transform.position,control.transform.position)<3){
-			Debug.Log("hit something");
-			control.audio.PlayOneShot(body_hit_sound);
-			control.GetComponent<CarpetControl>().detract(lose);
-			Destroy(gameObject);
-			
-		}
-		
-	}
+	
 }
