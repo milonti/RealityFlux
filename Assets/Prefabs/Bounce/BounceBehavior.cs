@@ -28,7 +28,8 @@ public class BounceBehavior : MonoBehaviour {
 		if(hitGround){
 			counter+=Time.deltaTime;
 			Vector3 direction=(oldEnemyPosition-bounceC.transform.localPosition);
-			if(direction<0.5f)hitGround=false;
+			
+			if(Vector3.Distance(oldEnemyPosition,bounceC.transform.localPosition)<0.5f)hitGround=false;
 			direction.Normalize();
 			Quaternion test=new Quaternion(0,0,0,0);
 			test.SetLookRotation(direction,bounceC.transform.up);
