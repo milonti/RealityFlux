@@ -45,7 +45,7 @@ public class ForwardShieldBehavior : MonoBehaviour {
 		if(player.Equals(controlID)) Destroy(gameObject);
 	}
 	
-	[RPC]
+	
 	public void setPosRot(Vector3 pos, Quaternion rot, string player){
 		if(controlID.Equals(player)){
 			transform.position = pos;

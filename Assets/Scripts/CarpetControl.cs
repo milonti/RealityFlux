@@ -7,6 +7,7 @@ public class CarpetControl : MonoBehaviour {
 	public float speed;
 	public GameObject enemy;
 	GameObject fb;
+	GameObject shield;
 	
 	public Vector3 moveDir;
 
@@ -95,7 +96,7 @@ public class CarpetControl : MonoBehaviour {
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "shield", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			}
 			if(Input.GetButton("Fire2") && WizardGUIScript.getMana() > 2){
-				networkView.RPC("setPosRot", RPCMode.All, look.transform.position, look.transform.rotation, player);
+				networkView.RPC("setPosRot", RPCMode.AllBuffered, look.transform.position, look.transform.rotation, player);
 			}
 			break;
 			case 2:
@@ -176,6 +177,7 @@ public class CarpetControl : MonoBehaviour {
 			fb.GetComponent<ForwardShieldBehavior>().setEnemy(target);
 			fb.GetComponent<ForwardShieldBehavior>().setControl(controller);
 			fb.GetComponent<ForwardShieldBehavior>().controlID = player;
+			shield = fb;
 			break;
 		case "wall":
 			fb = (GameObject)Instantiate(spells.wall, pos + forw * 8, rot);
@@ -199,7 +201,10 @@ public class CarpetControl : MonoBehaviour {
 		WizardGUIScript.addHealth(-i);
 	}
 	
-	
+	[RPC]
+	public void setPosRot(Vector3 pos, Quaternion rot, string player){
+		shield.GetComponent<ForwardShieldBehavior>().setPosRot(pos, rot, player);
+	}
 	
 	
 }
