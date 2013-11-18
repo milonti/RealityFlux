@@ -8,7 +8,7 @@ public class CarpetControl : MonoBehaviour {
 	public GameObject enemy;
 	GameObject fb;
 	GameObject shield;
-	public int wallCount;
+	public float wallCount;
 	public Vector3 moveDir;
 
 	Spells spells;
