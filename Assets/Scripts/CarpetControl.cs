@@ -165,7 +165,7 @@ public class CarpetControl : MonoBehaviour {
 		case "shield":
 			fb = (GameObject)Instantiate(spells.forwardShield, pos + forw * 8, rot);
 			fb.GetComponent<ForwardShieldBehavior>().setEnemy(target);
-			fb.GetComponent<ForwardShieldBehavior>().setControl(gameObject);
+			fb.GetComponent<ForwardShieldBehavior>().setControl(look.gameObject);
 			break;
 		case "wall":
 			fb = (GameObject)Instantiate(spells.wall, pos + forw * 8, rot);

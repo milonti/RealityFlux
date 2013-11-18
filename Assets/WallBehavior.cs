@@ -8,7 +8,7 @@ public class WallBehavior : MonoBehaviour {
 	public CharacterController wallC;
 	
 	public float life=2;
-	public int collisions;
+	public int collisions=0;
 	public GameObject explosionParticles;
 	public GameObject enemy;
 	public GameObject control;
@@ -24,7 +24,7 @@ public class WallBehavior : MonoBehaviour {
 		//life+=Time.deltaTime;
 		wallC.Move(transform.forward * speed * Time.deltaTime);
 		life+=Time.deltaTime;
-		wallC.transform.localScale=wallC.transform.localScale*1.5f*Time.deltaTime;
+		//wallC.transform.localScale=wallC.transform.localScale*1.5f*Time.deltaTime;
 		if(life >=10) Destroy(gameObject);
 		//Vector3 direction=(enemy.transform.position-wallC.transform.localPosition);
 		//direction.Normalize();
@@ -38,9 +38,10 @@ public class WallBehavior : MonoBehaviour {
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		//GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
-		collisions++;
+		if(hit.collider.tag.Equals("Spell"))collisions++;
 		//Debug.Log(hit.controller.name);
-		//Debug.Log(hit);
+		Debug.Log(hit.collider.tag);
+		Debug.Log (hit.collider.name);
 		
 		if(collisions>10){
 				//insert hit something report here.
