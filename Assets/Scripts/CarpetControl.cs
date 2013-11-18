@@ -176,7 +176,7 @@ public class CarpetControl : MonoBehaviour {
 			fb = (GameObject)Instantiate(spells.forwardShield, pos + forw * 8, rot);
 			fb.GetComponent<ForwardShieldBehavior>().setEnemy(target);
 			fb.GetComponent<ForwardShieldBehavior>().setControl(controller);
-			fb.GetComponent<ForwardShieldBehavior>().controlID = player;
+			fb.GetComponent<ForwardShieldBehavior>().controlID = shot;
 			shield = fb;
 			break;
 		case "wall":
@@ -202,8 +202,12 @@ public class CarpetControl : MonoBehaviour {
 	}
 	
 	[RPC]
-	public void setPosRot(Vector3 pos, Quaternion rot, string player){
-		shield.GetComponent<ForwardShieldBehavior>().setPosRot(pos, rot, player);
+	public void setPosRot(Vector3 pos, Quaternion rot, string play){
+		Object[] f = FindObjectsOfType(typeof(ForwardShieldBehavior));
+		foreach(Object o in f){
+			ForwardShieldBehavior d = (ForwardShieldBehavior) o;
+			d.setPosRot(pos, rot, play);
+		}
 	}
 	
 	

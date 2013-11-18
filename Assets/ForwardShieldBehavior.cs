@@ -47,7 +47,7 @@ public class ForwardShieldBehavior : MonoBehaviour {
 	
 	
 	public void setPosRot(Vector3 pos, Quaternion rot, string player){
-		
+		Debug.Log ("Player: " + player + " Control:" + controlID);
 		if(controlID.Equals(player)){
 			Debug.Log("Player " + player + " shield moved");
 			transform.position = pos;
