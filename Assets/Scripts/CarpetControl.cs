@@ -87,6 +87,10 @@ public class CarpetControl : MonoBehaviour {
 				WizardGUIScript.addMana(-2);
 				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation, player);
 			}
+				if(Input.GetButtonDown("Fire2") && WizardGUIScript.getMana() > 2){
+				WizardGUIScript.addMana(-3);
+				networkView.RPC("castSpell", RPCMode.AllBuffered, "boulder", look.transform.position, look.transform.forward, look.transform.rotation, player);
+			}
 			break;
 			case 1:
 			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>1){
@@ -187,6 +191,11 @@ public class CarpetControl : MonoBehaviour {
 			fb = (GameObject)Instantiate(spells.wall, pos + forw * 8, rot);
 			fb.GetComponent<WallBehavior>().setEnemy(target);
 			fb.GetComponent<WallBehavior>().setControl(gameObject);
+			break;
+		case "boulder":
+			fb = (GameObject)Instantiate(spells.wall, pos + forw * 40, rot);
+			fb.GetComponent<BoulderBehavior>().setEnemy(target);
+			fb.GetComponent<BoulderBehavior>().setControl(gameObject);
 			break;
 		}
 	}
