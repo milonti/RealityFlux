@@ -36,9 +36,11 @@ public class CarpetControl : MonoBehaviour {
 	public bool loser;
 	public bool gameOver;
 	public float overTimer;
+	public string status;
 	
 	// Use this for initialization
 	void Start () {
+		status = "";
 		winner = false;
 		loser = false;
 		gameOver = false;
@@ -136,9 +138,9 @@ public class CarpetControl : MonoBehaviour {
 		
 	}
 	
-	void OnGui(){
+	void OnGUI(){
 		if(gameOver){
-			string status = "";
+			status = "";
 			if(winner) status = "VICTORY";
 			else if(loser) status = "DEFEAT";
 			
@@ -216,7 +218,7 @@ public class CarpetControl : MonoBehaviour {
 			fb.GetComponent<WallBehavior>().setControl(gameObject);
 			break;
 		case "boulder":
-			fb = (GameObject)Instantiate(spells.wall, pos + forw * 40, rot);
+			fb = (GameObject)Instantiate(spells.boulder, pos + forw * 40, rot);
 			fb.GetComponent<BoulderBehavior>().setEnemy(target);
 			fb.GetComponent<BoulderBehavior>().setControl(gameObject);
 			break;
