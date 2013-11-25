@@ -110,8 +110,8 @@ public class CarpetControl : MonoBehaviour {
 					WizardGUIScript.addMana(-1);
 					networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation, player);
 				}
-				if(Input.GetButtonDown("Fire2") && WizardGUIScript.getMana() > 2){
-					WizardGUIScript.addMana(-3);
+				if(Input.GetButtonDown("Fire2") && WizardGUIScript.getMana() > 11){
+					WizardGUIScript.addMana(-12);
 					networkView.RPC("castSpell", RPCMode.AllBuffered, "shield", look.transform.position, look.transform.forward, look.transform.rotation, player);
 				}
 				if(Input.GetButton("Fire2") && WizardGUIScript.getMana() > 2){
@@ -265,6 +265,7 @@ public class CarpetControl : MonoBehaviour {
 		if(!p.Equals(player) && !loser){
 			//set that I won
 			winner = true;
+			GameObject.FindWithTag("GUI").GetComponent<WizardGUIScript>().enabled = false;
 		}
 	}
 	
