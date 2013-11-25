@@ -271,6 +271,7 @@ public class CarpetControl : MonoBehaviour {
 	public void sendLoser(string p){
 		networkView.RPC("loserStatus", RPCMode.OthersBuffered, p);
 		loser = true;
+		GameObject.FindWithTag("GUI").GetComponent<WizardGUIScript>().enabled = false;
 	}
 	
 }
