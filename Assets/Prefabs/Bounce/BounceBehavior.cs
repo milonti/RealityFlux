@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BounceBehavior : MonoBehaviour {
 	
-	public float speed = 700;
+	public float speed = 600;
 	
 	public CharacterController bounceC;
 	double counter=0;
@@ -49,9 +49,9 @@ public class BounceBehavior : MonoBehaviour {
 		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
 		bounceC.transform.rotation = Quaternion.Lerp(bounceC.transform.rotation,test, Time.deltaTime);
 		*/
-		shittyCollisionDetection(20);
+		shittyCollisionDetection(15);
 		life+=Time.deltaTime;
-		if(life >=30) Destroy(gameObject);
+		if(life >=15) Destroy(gameObject);
 	}
 	
 	void OnControllerColliderHit(ControllerColliderHit hit){
