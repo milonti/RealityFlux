@@ -262,14 +262,14 @@ public class CarpetControl : MonoBehaviour {
 	
 	[RPC] 
 	public void loserStatus(string p){
-		if(!p.Equals(player)){
+		if(!p.Equals(player) && !loser){
 			//set that I won
 			winner = true;
 		}
 	}
 	
 	public void sendLoser(string p){
-		networkView.RPC("loserStatus", RPCMode.OthersBuffered, p);
+		networkView.RPC("loserStatus", RPCMode.Others, p);
 		loser = true;
 		GameObject.FindWithTag("GUI").GetComponent<WizardGUIScript>().enabled = false;
 	}
