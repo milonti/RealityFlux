@@ -20,7 +20,7 @@ public class BoulderBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		collisions=0;
-		sphere=GameObject.FindGameObjectWithTag("stupid");
+		//sphere=GameObject.FindGameObjectWithTag("stupid");
 	}
 	
 	// Update is called once per frame
@@ -50,7 +50,8 @@ public class BoulderBehavior : MonoBehaviour {
 		//Debug.Log(hit.controller.name);
 		//Debug.Log(hit);
 		if(collisions>10){
-			GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
+			//GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
+			//Destroy(sphere);
 			Destroy(gameObject);
 		}
 		if(hit.collider.name.Equals("Hitbox")){
@@ -59,6 +60,14 @@ public class BoulderBehavior : MonoBehaviour {
 			}
 		
 	}
+	void onCollisionEnter(Collision hit){
+		collisions=collisions+1;
+		if(collisions>10){
+			//GameObject explode = (GameObject)Instantiate(explosionParticles, transform.position, new Quaternion(0f, 0f, 0f, 0f));
+			Destroy(gameObject);
+		}
+	}
+	
 	public void setEnemy(GameObject e){
 		enemy=e;	
 	}
