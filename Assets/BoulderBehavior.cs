@@ -40,7 +40,7 @@ public class BoulderBehavior : MonoBehaviour {
 		test.SetLookRotation(direction,boulderC.transform.up);
 		//transform.rotation = Quaternion.Lerp(from.rotation, to.rotation, Time.time * speed);
 		boulderC.transform.rotation = Quaternion.Lerp(boulderC.transform.rotation,test, Time.deltaTime*1.5f);
-		shittyCollisionDetection(4);
+		shittyCollisionDetection(20);
 		
 	}
 	
