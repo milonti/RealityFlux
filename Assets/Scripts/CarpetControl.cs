@@ -38,6 +38,8 @@ public class CarpetControl : MonoBehaviour {
 	public float overTimer;
 	public string status;
 	
+	public GUIStyle gameOverButton;
+	
 	// Use this for initialization
 	void Start () {
 		status = "";
@@ -144,7 +146,8 @@ public class CarpetControl : MonoBehaviour {
 			if(winner) status = "VICTORY";
 			else if(loser) status = "DEFEAT";
 			
-			GUI.Box ( new Rect( Screen.width/2-40,Screen.height/2-20,80,40), status,"button");
+			//GUI.Box ( new Rect( Screen.width/2-40,Screen.height/2-20,80,40), status,"button");
+			GUI.Button(new Rect(Screen.width/2 - 275, Screen.height/3 - 50, 550, 100), status, gameOverButton);
 			if(overTimer >= 2 && Screen.lockCursor) Screen.lockCursor = false;
 			else overTimer += Time.deltaTime;
 		}
