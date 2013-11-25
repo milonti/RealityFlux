@@ -216,7 +216,7 @@ public class CarpetControl : MonoBehaviour {
 			fb.GetComponent<WallBehavior>().setControl(gameObject);
 			break;
 		case "boulder":
-			fb = (GameObject)Instantiate(spells.wall, pos + forw * 40, rot);
+			fb = (GameObject)Instantiate(spells.boulder, pos + forw * 40, rot);
 			fb.GetComponent<BoulderBehavior>().setEnemy(target);
 			fb.GetComponent<BoulderBehavior>().setControl(gameObject);
 			break;
