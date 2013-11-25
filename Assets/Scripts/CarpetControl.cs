@@ -32,9 +32,17 @@ public class CarpetControl : MonoBehaviour {
 	public AudioClip capsuleSound;
 	public AudioClip shieldSound;
 	
+	public bool winner;
+	public bool loser;
+	public bool gameOver;
+	public float overTimer;
 	
 	// Use this for initialization
 	void Start () {
+		winner = false;
+		loser = false;
+		gameOver = false;
+		
 		moveDir = Vector3.zero;
 		WizardGUIScript.setMana(50);
 		WizardGUIScript.setHealth(100);
@@ -42,87 +50,102 @@ public class CarpetControl : MonoBehaviour {
 		spells = new Spells();
 		
 		wallCount=10;
-		
+		overTimer = 0;
 	}
 	
 	// Update is called once per frame
 	void Update(){
 		
-		WizardGUIScript.addMana(1f*Time.deltaTime);
-		//WizardGUIScript.addHealth(0.2f*Time.deltaTime);
-		if(enemy==null)enemy = GameObject.Find("OtherPlayer");
-		if(isMyPlayer){
-			//rotation stuff
-			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
-		
-			look.transform.localEulerAngles = new Vector3(-rotationY, 0, 0);
-		
-			transform.Rotate(transform.up, sensitivityX * Input.GetAxis("Mouse X"));
-		
-		
-			//movement stuff
-			moveDir = Vector3.zero;
-		
-			moveDir += transform.forward * Input.GetAxis("Vertical");
-			moveDir += transform.right * Input.GetAxis("Horizontal");
-			moveDir += transform.up * Input.GetAxis("Ascend");
+		if (!gameOver) {
+			WizardGUIScript.addMana(1f*Time.deltaTime);
+			if(enemy==null)enemy = GameObject.Find("OtherPlayer");
+			if(isMyPlayer){
+				//rotation stuff
+				rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+				rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
 			
+				look.transform.localEulerAngles = new Vector3(-rotationY, 0, 0);
 			
-			if(moveDir.magnitude > 0.001){
-				playC.Move(moveDir * Time.deltaTime * speed);
-				networkView.RPC ("movePlayer", RPCMode.OthersBuffered, transform.position, player, transform.rotation);
-			}	
-			else WizardGUIScript.addMana(2f*Time.deltaTime);
-			//spells go here
-			 if (Input.GetAxis("Mouse ScrollWheel") < 0) {
-				WizardGUIScript.spellsUp();
-			}
-			if (Input.GetAxis("Mouse ScrollWheel") > 0) WizardGUIScript.spellsDown();
+				transform.Rotate(transform.up, sensitivityX * Input.GetAxis("Mouse X"));
 			
-			switch(WizardGUIScript.getSpellSet())
-			{
-			case 0:
-			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
-				WizardGUIScript.addMana(-2);
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation, player);
-			}
-				if(Input.GetButtonDown("Fire2") && WizardGUIScript.getMana() > 2){
-				WizardGUIScript.addMana(-3);
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "boulder", look.transform.position, look.transform.forward, look.transform.rotation, player);
-			}
-			break;
-			case 1:
-			if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>1){
-				WizardGUIScript.addMana(-1);
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation, player);
-			}
-			if(Input.GetButtonDown("Fire2") && WizardGUIScript.getMana() > 2){
-				WizardGUIScript.addMana(-3);
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "shield", look.transform.position, look.transform.forward, look.transform.rotation, player);
-			}
-			if(Input.GetButton("Fire2") && WizardGUIScript.getMana() > 2){
-				networkView.RPC("setPosRot", RPCMode.AllBuffered, look.transform.position + look.transform.forward * 8, look.transform.rotation, player);
-			}
-			break;
-			case 2:
+
+			
+				//movement stuff
+				moveDir = Vector3.zero;
+			
+				moveDir += transform.forward * Input.GetAxis("Vertical");
+				moveDir += transform.right * Input.GetAxis("Horizontal");
+				moveDir += transform.up * Input.GetAxis("Ascend");
+				
+				
+				if(moveDir.magnitude > 0.001){
+					playC.Move(moveDir * Time.deltaTime * speed);
+					networkView.RPC ("movePlayer", RPCMode.OthersBuffered, transform.position, player, transform.rotation);
+				}	
+				else WizardGUIScript.addMana(2f*Time.deltaTime);
+				//spells go here
+				 if (Input.GetAxis("Mouse ScrollWheel") < 0) {
+					WizardGUIScript.spellsUp();
+				}
+				if (Input.GetAxis("Mouse ScrollWheel") > 0) WizardGUIScript.spellsDown();
+				
+				switch(WizardGUIScript.getSpellSet())
+				{
+				case 0:
 				if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>2){
-				WizardGUIScript.addMana(-2);
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
-			}	
-			if(Input.GetButtonDown("Fire2")&&WizardGUIScript.getMana()>2&&wallCount>5){
-				WizardGUIScript.addMana(0);
-				networkView.RPC("castSpell", RPCMode.AllBuffered, "wall", look.transform.position, look.transform.forward, look.transform.rotation, player);
-				wallCount=0;
+					WizardGUIScript.addMana(-2);
+					networkView.RPC("castSpell", RPCMode.AllBuffered, "homing", look.transform.position, look.transform.forward, look.transform.rotation, player);
+				}
+				if(Input.GetButtonDown("Fire2") && WizardGUIScript.getMana() > 2){
+					WizardGUIScript.addMana(-3);
+					networkView.RPC("castSpell", RPCMode.AllBuffered, "boulder", look.transform.position, look.transform.forward, look.transform.rotation, player);
+				}
+				break;
+				case 1:
+				if(Input.GetButtonUp("Fire1")&&WizardGUIScript.getMana()>1){
+					WizardGUIScript.addMana(-1);
+					networkView.RPC("castSpell", RPCMode.AllBuffered, "fireball", look.transform.position, look.transform.forward, look.transform.rotation, player);
+				}
+				if(Input.GetButtonDown("Fire2") && WizardGUIScript.getMana() > 2){
+					WizardGUIScript.addMana(-3);
+					networkView.RPC("castSpell", RPCMode.AllBuffered, "shield", look.transform.position, look.transform.forward, look.transform.rotation, player);
+				}
+				if(Input.GetButton("Fire2") && WizardGUIScript.getMana() > 2){
+					networkView.RPC("setPosRot", RPCMode.AllBuffered, look.transform.position + look.transform.forward * 8, look.transform.rotation, player);
+				}
+				break;
+				case 2:
+					if(Input.GetButtonUp("Fire1") && WizardGUIScript.getMana()>2){
+					WizardGUIScript.addMana(-2);
+					networkView.RPC("castSpell", RPCMode.AllBuffered, "bouncer", look.transform.position, look.transform.forward, look.transform.rotation, player);
+				}	
+				if(Input.GetButtonDown("Fire2") && WizardGUIScript.getMana()>2 && wallCount>5){
+					WizardGUIScript.addMana(0);
+					networkView.RPC("castSpell", RPCMode.AllBuffered, "wall", look.transform.position, look.transform.forward, look.transform.rotation, player);
+					wallCount=0;
+				}
+				break;
+				}
+				wallCount+=Time.deltaTime;
+				if(Input.GetButtonUp("Fire2")) networkView.RPC("endShield", RPCMode.All, player);
+				
 			}
-			break;
-			}
-			wallCount+=Time.deltaTime;
-			if(Input.GetButtonUp("Fire2")) networkView.RPC("endShield", RPCMode.All, player);
-			
+			if(winner || loser) gameOver = true;
 		}
 		
 		
+	}
+	
+	void OnGui(){
+		if(gameOver){
+			string status = "";
+			if(winner) status = "VICTORY";
+			else if(loser) status = "DEFEAT";
+			
+			GUI.Box ( new Rect( Screen.width/2-40,Screen.height/2-20,80,40), status,"button");
+			if(overTimer >= 2 && Screen.lockCursor) Screen.lockCursor = false;
+			else overTimer += Time.deltaTime;
+		}
 	}
 	
 	
@@ -201,12 +224,12 @@ public class CarpetControl : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter(Collision collision) {
-		Debug.Log("test");
-        Debug.Log(collision.collider.name);
+		//Debug.Log("test");
+        //Debug.Log(collision.collider.name);
 		
-		Debug.Log(collision.gameObject.name);
+		//Debug.Log(collision.gameObject.name);
 		//Debug.Log (collision.);
-		int i=1;
+		//int i=1;
         
     }
 	
@@ -230,6 +253,19 @@ public class CarpetControl : MonoBehaviour {
 			ForwardShieldBehavior d = (ForwardShieldBehavior) o;
 			d.die(play);
 		}
+	}
+	
+	[RPC] 
+	public void loserStatus(string p){
+		if(!p.Equals(player)){
+			//set that I won
+			winner = true;
+		}
+	}
+	
+	public void sendLoser(string p){
+		networkView.RPC("loserStatus", RPCMode.OthersBuffered, p);
+		loser = true;
 	}
 	
 }

@@ -10,10 +10,14 @@ public class WizardGUIScript : MonoBehaviour {
 	Color c=Color.red;
 	static int spellSet=0;
 	static int maxSpells=2;
-	void start(){
+	bool sentLoss;
+	
+	void Start(){
 		//length=Screen.width/2;
 		//length=100;
+		sentLoss = false;
 	}
+	
 	void OnGUI () {
 		// Make a background box
 		//length=Screen.width/2-20;
@@ -48,24 +52,24 @@ public class WizardGUIScript : MonoBehaviour {
 		GUI.color=Color.blue;
 		GUI.Box (new Rect(Screen.width/2+80,0,MPcurrent/maxMana*(Screen.width/2-80), 40), "","button");
 		GUI.color=Color.yellow;
-		if(HPcurrent<0)GUI.Box (new Rect( Screen.width/2-40,Screen.height/2-20,80,40), "YOU LOSE","button");
+		
 		GUI.color=Color.white;
 		GUI.Box (new Rect(0,0, Screen.width/2-80, 40), (int)HPcurrent + "/" + maxHealth);   
 		GUI.Box (new Rect(Screen.width/2+80,0, Screen.width/2-80, 40), (int)MPcurrent + "/" + maxMana); 
 		
-		
-		//GUI.Box(rec
-		/*
-		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
-		if(GUI.Button(new Rect(20,40,80,20), "Level 1")) {
-			Application.LoadLevel(1);
+		//if(HPcurrent<0) GUI.Box ( new Rect( Screen.width/2-40,Screen.height/2-20,80,40), "YOU LOSE","button");
+		if(HPcurrent <=0 && !sentLoss){
+			//send loss
+			GameObject player = GameObject.Find("Player");
+			if(player != null){
+				player.GetComponent<CarpetControl>().sendLoser(player.GetComponent<CarpetControl>().player);
+				sentLoss = true;
+			}
 		}
-
-		// Make the second button.
-		if(GUI.Button(new Rect(20,70,80,20), "Level 2")) {
-			Application.LoadLevel(2);
+		else if(sentLoss){
+			this.enabled = false;
+			
 		}
-		*/
 	}
 	static public void addHealth(float h){
 		HPcurrent+=h;

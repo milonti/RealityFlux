@@ -52,6 +52,7 @@ public class GameScript : MonoBehaviour {
 		if(isMe){
 			MMG.playerList[np].avatar.GetComponent<CarpetControl>().isMyPlayer = true;
 			MMG.playerList[np].avatar.GetComponentInChildren<Camera>().enabled = true;
+			MMG.playerList[np].avatar.name = "Player";
 		} else{
 			MMG.playerList[np].avatar.GetComponentInChildren<Camera>().enabled = false;
 			MMG.playerList[np].avatar.name = "OtherPlayer";
